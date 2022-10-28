@@ -1,474 +1,175 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Hexo</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-10-29 02:09:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-<meta name="generator" content="Hexo 6.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-HDFS的shell命令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/29/HDFS%E7%9A%84shell%E5%91%BD%E4%BB%A4/" class="article-date">
-  <time class="dt-published" datetime="2022-10-28T17:47:23.621Z" itemprop="datePublished">2022-10-29</time>
-</a>
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="HDFS的shell命令"><a href="#HDFS的shell命令" class="headerlink" title="HDFS的shell命令"></a>HDFS的shell命令</h1><h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p>hadoop fs 具体命令 OR hdfs dfs 具体命令<br>两个是完全相同的</p>
-<h2 id="命令大全"><a href="#命令大全" class="headerlink" title="命令大全"></a>命令大全</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 hadoop-3.1.3]$ bin/hadoop fs</span><br><span class="line">[-appendToFile &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line"> [-cat [-ignoreCrc] &lt;src&gt; ...]</span><br><span class="line"> [-chgrp [-R] GROUP PATH...]</span><br><span class="line"> [-chmod [-R] &lt;MODE[,MODE]... | OCTALMODE&gt; PATH...]</span><br><span class="line"> [-chown [-R] [OWNER][:[GROUP]] PATH...]</span><br><span class="line"> [-copyFromLocal [-f] [-p] &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line"> [-copyToLocal [-p] [-ignoreCrc] [-crc] &lt;src&gt; ... &lt;localdst&gt;]</span><br><span class="line"> [-count [-q] &lt;path&gt; ...]</span><br><span class="line"> [-cp [-f] [-p] &lt;src&gt; ... &lt;dst&gt;]</span><br><span class="line"> [-df [-h] [&lt;path&gt; ...]]</span><br><span class="line"> [-du [-s] [-h] &lt;path&gt; ...]</span><br><span class="line"> [-get [-p] [-ignoreCrc] [-crc] &lt;src&gt; ... &lt;localdst&gt;]</span><br><span class="line"> [-getmerge [-nl] &lt;src&gt; &lt;localdst&gt;]</span><br><span class="line"> [-help [cmd ...]]</span><br><span class="line"> [-ls [-d] [-h] [-R] [&lt;path&gt; ...]]</span><br><span class="line"> [-mkdir [-p] &lt;path&gt; ...]</span><br><span class="line"> [-moveFromLocal &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line"> [-moveToLocal &lt;src&gt; &lt;localdst&gt;]</span><br><span class="line"> [-mv &lt;src&gt; ... &lt;dst&gt;]</span><br><span class="line"> [-put [-f] [-p] &lt;localsrc&gt; ... &lt;dst&gt;]</span><br><span class="line"> [-rm [-f] [-r|-R] [-skipTrash] &lt;src&gt; ...]</span><br><span class="line"> [-rmdir [--ignore-fail-on-non-empty] &lt;dir&gt; ...]</span><br><span class="line">&lt;acl_spec&gt; &lt;path&gt;]]</span><br><span class="line"> [-setrep [-R] [-w] &lt;rep&gt; &lt;path&gt; ...]</span><br><span class="line"> [-stat [format] &lt;path&gt; ...]</span><br><span class="line"> [-tail [-f] &lt;file&gt;]</span><br><span class="line"> [-test -[defsz] &lt;path&gt;]</span><br><span class="line"> [-text [-ignoreCrc] &lt;src&gt; ...]</span><br></pre></td></tr></table></figure>
-<h2 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h2><h3 id="z准备工作"><a href="#z准备工作" class="headerlink" title="z准备工作"></a>z准备工作</h3><p>查看命令如何使用help</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -help rm</span><br></pre></td></tr></table></figure>
-<p>创建三国文件夹</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mkidr /sangguo</span><br></pre></td></tr></table></figure>
-<p>后续的操作都在sangguo这个文件夹里忙进行操作</p>
-<h3 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h3><p>首先在本地创建一个shuoguo文件，然后上传</p>
-<h4 id="—moveFromLocal"><a href="#—moveFromLocal" class="headerlink" title="—moveFromLocal"></a>—moveFromLocal</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -moveFromLocal ./shuguo.txt /sangguo</span><br></pre></td></tr></table></figure>
-<p>注意：这个操作是剪切，会直接删除本地的文件</p>
-<h4 id="copyFromLocal"><a href="#copyFromLocal" class="headerlink" title="-copyFromLocal"></a>-copyFromLocal</h4><p>从本地文件系统中拷贝文件到 HDFS 路径去，用法同moveFromLocal</p>
-<h4 id="—put"><a href="#—put" class="headerlink" title="—put"></a>—put</h4><p>使用和copyFromLoca一样，这个比较常用</p>
-<h4 id="appendToFile"><a href="#appendToFile" class="headerlink" title="-appendToFile"></a>-appendToFile</h4><p>追加一个文件到已经存在的文件末尾<br>首先创建一个刘备文件,然后追加到shuguo的文件末尾</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim liubei.txt</span><br><span class="line">hadoop fs -appendToFile ./liubei.txt /sanguo/shuguo.txt</span><br></pre></td></tr></table></figure>
-<p>注意有些浏览器显示的内容是object，可以使用cat命令查看</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -cat /sanguo/shuguo.txt</span><br></pre></td></tr></table></figure>
-<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220727114019.png" alt="20220727114019"></p>
-<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><h4 id="copyToLocal"><a href="#copyToLocal" class="headerlink" title="-copyToLocal"></a>-copyToLocal</h4><p>从 HDFS 拷贝到本地</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -copyToLocal /sangguo/wuguo.txt ./</span><br></pre></td></tr></table></figure>
-<h4 id="get"><a href="#get" class="headerlink" title="-get"></a>-get</h4><p>用法和copyToLocal相同一般使用get比较多</p>
-<h3 id="HDFS-直接操作"><a href="#HDFS-直接操作" class="headerlink" title="HDFS 直接操作"></a>HDFS 直接操作</h3><h4 id="ls-显示目录信息"><a href="#ls-显示目录信息" class="headerlink" title="ls 显示目录信息"></a>ls 显示目录信息</h4><h4 id="cat-显示文件信息"><a href="#cat-显示文件信息" class="headerlink" title="cat 显示文件信息"></a>cat 显示文件信息</h4><h4 id="chgrp、-chmod、-chown"><a href="#chgrp、-chmod、-chown" class="headerlink" title="-chgrp、-chmod、-chown"></a>-chgrp、-chmod、-chown</h4><p>修改目录的权限</p>
-<h4 id="mkdir-创建文件夹"><a href="#mkdir-创建文件夹" class="headerlink" title="mkdir 创建文件夹"></a>mkdir 创建文件夹</h4><h4 id="cp-拷贝文件"><a href="#cp-拷贝文件" class="headerlink" title="cp 拷贝文件"></a>cp 拷贝文件</h4><h4 id="mv-移动文件"><a href="#mv-移动文件" class="headerlink" title="mv 移动文件"></a>mv 移动文件</h4><h4 id="tail显示文件末尾1kb的数据"><a href="#tail显示文件末尾1kb的数据" class="headerlink" title="tail显示文件末尾1kb的数据"></a>tail显示文件末尾1kb的数据</h4><p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220727120512.png" alt="20220727120512"></p>
-<h4 id="rm删除文件或文件夹"><a href="#rm删除文件或文件夹" class="headerlink" title="rm删除文件或文件夹"></a>rm删除文件或文件夹</h4><h4 id="rm-r-递归删除"><a href="#rm-r-递归删除" class="headerlink" title="rm -r 递归删除"></a>rm -r 递归删除</h4><h4 id="统计文件夹信息"><a href="#统计文件夹信息" class="headerlink" title="统计文件夹信息"></a>统计文件夹信息</h4><p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220729113120.png" alt="20220729113120">                                 </p>
-<h4 id="setrep：设置-HDFS-中文件的副本数量"><a href="#setrep：设置-HDFS-中文件的副本数量" class="headerlink" title="setrep：设置 HDFS 中文件的副本数量"></a>setrep：设置 HDFS 中文件的副本数量</h4><p>这里设置的副本数只是记录在 NameNode 的元数据中，是否真的会有这么多副本，还得<br>看 DataNode 的数量。因为目前只有 3 台设备，最多也就 3 个副本，只有节点数的增加到 10<br>台时，副本数才能达到</p>
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Hexo</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2022/10/29/HDFS%E7%9A%84shell%E5%91%BD%E4%BB%A4/" title="No title">No title</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-10-28T17:47:23.621Z" title="Created 2022-10-29 01:47:23">2022-10-29</time></span></div><div class="content">HDFS的shell命令基本语法hadoop fs 具体命令 OR hdfs dfs 具体命令两个是完全相同的
+命令大全1234567891011121314151617181920212223242526272829[atguigu@hadoop102 hadoop-3.1.3]$ bin/hadoop fs[-appendToFile &lt;localsrc&gt; ... &lt;dst&gt;] [-cat [-ignoreCrc] &lt;src&gt; ...] [-chgrp [-R] GROUP PATH...] [-chmod [-R] &lt;MODE[,MODE]... | OCTALMODE&gt; PATH...] [-chown [-R] [OWNER][:[GROUP]] PATH...] [-copyFromLocal [-f] [-p] &lt;localsrc&gt; ... &lt;dst&gt;] [-copyToLocal [-p] [-ignoreCrc] [-crc] &lt;src&gt; ... &lt;localdst&gt;] [ ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2022/10/29/HDFS%E7%9A%84JavaAPI%E6%93%8D%E4%BD%9C/" title="No title">No title</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-10-28T17:47:23.614Z" title="Created 2022-10-29 01:47:23">2022-10-29</time></span></div><div class="content">首先win环境配置这里需要配置JDK，Hadoop的环境变量，windows依赖放在这里了
+链接：https://pan.baidu.com/s/1nO8yHE07reOqNmyoZwhyAQ?pwd=ixep提取码：ixep 
+放在一个非中文路径，然后配置环境变量HADOOP_HOME
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/29/HDFS%E7%9A%84shell%E5%91%BD%E4%BB%A4/" data-id="cl9ssim9u0001rgwvg3va0ftj" data-title="" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
+idea创建工程并引入依赖1234567891011121314151617181920212223242526272829&lt;dependencies&gt;    &lt;dependency&gt;        &lt;groupId&gt;ch.cern.hadoop&lt;/groupId&gt;        &lt;artifactId&gt;hadoop-client&lt;/artifactId&gt;        &lt;version&gt;3.2.1&lt;/version&gt;    &lt;/dependency&gt;    &lt;dependency&gt;        &lt;groupId&gt;#&lt;/groupId&gt;        &l ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2022/10/29/HDFS%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B&amp;NameNode%E5%92%8CSecondaryNameNode%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/" title="No title">No title</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-10-28T17:47:23.603Z" title="Created 2022-10-29 01:47:23">2022-10-29</time></span></div><div class="content">HDFS读写数据流程&amp;NameNode和SecondaryNameNode工作流程HDFS的读写流程HDFS写数据的流程（1）客户端通过 Distributed FileSystem 模块向 NameNode 请求上传文件，NameNode 检查目标文件是否已存在，父目录是否存在。（2）NameNode 返回是否可以上传。（3）客户端请求第一个 Block 上传到哪几个 DataNode 服务器上。（4）NameNode 返回 3 个 DataNode 节点，分别为 dn1、dn2、dn3。 （5）客户端通过 FSDataOutputStream 模块请求 dn1 上传数据，dn1 收到请求会继续调用dn2，然后 dn2 调用 dn3，将这个通信管道建立完成。（6）dn1、dn2、dn3 逐级应答客户端。（7）客户端开始往 dn1 上传第一个 Block（先从磁盘读取数据放到一个本地内存缓存），以 Packet 为单位，dn1 收到一个 Packet 就会传给 dn2，dn2 传给 dn3；dn1 每传一个 packet会放入一个应答队列等待应答。 （8）当一个 Block 传 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2022/10/29/Hadoop%E6%A6%82%E8%BF%B0%E6%9E%B6%E6%9E%84/" title="No title">No title</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-10-28T17:42:49.594Z" title="Created 2022-10-29 01:42:49">2022-10-29</time></span></div><div class="content">HadoopHDFS架构概述Hadoop Distributed File System，简称 HDFS，是一个分布式文件系统。
+具体组成
+NameNode整个数据的存储情况
+存储文件的元数据，如文件名，文件目录结构，文件属性（生成时间、副本数、
+文件权限），以及每个文件的块列表和块所在的DataNode等。
+DataNode具体的存储数据
+在本地文件系统存储文件块数据，以及块数据的校验和。
+2NN辅助Namenode工作
+每隔一段时间对 NameNode 元数据备份
+YARN架构概述Yet Another Resource Negotiator 简称 YARN ，另一种资源协调者，是 Hadoop 的资源管理器。
+ResourceManager（RM）所有资源的管理者，整个集群资源（内存、CPU等）的老大
+NodeManager（N M）单节点资源的管理者，单个节点服务器资源老大
+ApplicationMaster（AM）由客户端提交的任务，单个任务运行的老大，任务运行在container容器中
+Container容器，相当一台独立的服务器，里面封装了任务运行所需的内存，cpu，网络 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2022/10/29/Hadoop%E5%BA%8F%E5%88%97%E5%8C%96/" title="No title">No title</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-10-28T17:42:49.587Z" title="Created 2022-10-29 01:42:49">2022-10-29</time></span></div><div class="content">序列化概述什么是序列化序列化就是把内存中的对象，转换成字节序列（或其他数据传输协议）以便于存储到磁盘（持久化）和网络传输。 反序列化就是将收到字节序列（或其他数据传输协议）或者是磁盘的持久化数据，转换成内存中的对象。
+为什么要序列化一般来说，“活的”对象只生存在内存里，关机断电就没有了。而且“活的”对象只能由本地的进程使用，不能被发送到网络上的另外一台计算机。 然而序列化可以存储“活的”对象，可以将“活的”对象发送到远程计算机。
+为什么不用Java的序列化Java的序列化是一个重量级序列化框架（Serializable），一个对象被序列化后，会附带很多额外的信息（各种校验信息，Header，继承体系等），不便于在网络中高效传输。所以，Hadoop自己开发了一套序列化机制（Writable）。
+Hadoop序列化特点：（1）紧凑 ：高效使用存储空间。（2）快速：读写数据的额外开销小。（3）互操作：支持多语言的交互，假设一个客户端使用Java，另一个使用C++，依旧可以使用序列化
+自定义bean对象实现序列化接口（Writable）在企业开发中往往常用的基本序列化类型不能满足所有需求，比如 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info"><a class="article-title" href="/2022/10/29/hello-world/" title="Hello World">Hello World</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2022-10-28T16:12:06.243Z" title="Created 2022-10-29 00:12:06">2022-10-29</time></span></div><div class="content">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick StartCreate a new post1$ hexo new &quot;My New Post&quot;
 
+More info: Writing
+Run server1$ hexo server
 
+More info: Server
+Generate static files1$ hexo generate
 
-  
-    <article id="post-HDFS的JavaAPI操作" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/29/HDFS%E7%9A%84JavaAPI%E6%93%8D%E4%BD%9C/" class="article-date">
-  <time class="dt-published" datetime="2022-10-28T17:47:23.614Z" itemprop="datePublished">2022-10-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="首先win环境配置"><a href="#首先win环境配置" class="headerlink" title="首先win环境配置"></a>首先win环境配置</h2><p>这里需要配置JDK，Hadoop的环境变量，windows依赖放在这里了</p>
-<p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1nO8yHE07reOqNmyoZwhyAQ?pwd=ixep">https://pan.baidu.com/s/1nO8yHE07reOqNmyoZwhyAQ?pwd=ixep</a><br>提取码：ixep </p>
-<p>放在一个非中文路径，然后配置环境变量HADOOP_HOME<br><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220801231345.png" alt="20220801231345"></p>
-<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220801231401.png" alt="20220801231401"></p>
-<h2 id="idea创建工程并引入依赖"><a href="#idea创建工程并引入依赖" class="headerlink" title="idea创建工程并引入依赖"></a>idea创建工程并引入依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.cern.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>#<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>log4j-2.17.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-hdfs<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.jupiter<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-jupiter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这里引入hadoop-hdfs其实是为了看BlockPlacementPolicyDefault这个类里面对于上传文件的源码查看</p>
-<h2 id="java连接hadoop常见操作"><a href="#java连接hadoop常见操作" class="headerlink" title="java连接hadoop常见操作"></a>java连接hadoop常见操作</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 客户端代码相关流程</span></span><br><span class="line"><span class="comment"> * 1获取一个客户端对象</span></span><br><span class="line"><span class="comment"> * 2执行相关的操作命令</span></span><br><span class="line"><span class="comment"> * 3关闭资源</span></span><br><span class="line"><span class="comment"> * HDFS zookeeper都是这样执行的</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HdfsClient</span> &#123;</span><br><span class="line">    <span class="type">FileSystem</span> <span class="variable">fs</span> <span class="operator">=</span> FileSystem.get(<span class="keyword">new</span> <span class="title class_">Configuration</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HdfsClient</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * \</span></span><br><span class="line"><span class="comment">     * 初始化客户端，便于以后调用</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@BeforeEach</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> <span class="keyword">throws</span> URISyntaxException, IOException, InterruptedException &#123;</span><br><span class="line">        <span class="type">URI</span> <span class="variable">uri</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">URI</span>(<span class="string">&quot;hdfs://192.168.10.102:8020&quot;</span>);</span><br><span class="line">        <span class="comment">// 集群的配置文件</span></span><br><span class="line">        <span class="type">Configuration</span> <span class="variable">configuration</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Configuration</span>();</span><br><span class="line">        <span class="comment">// configuration.set(&quot;dfs.client.use.datanode.hostname&quot;, &quot;true&quot;);</span></span><br><span class="line"><span class="comment">//        configuration.set();</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">user</span> <span class="operator">=</span> <span class="string">&quot;caojun&quot;</span>;</span><br><span class="line">        <span class="comment">//获得了客户端对象</span></span><br><span class="line">        fs = FileSystem.get(uri, configuration, user);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建文件夹</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testMkdir</span><span class="params">()</span> <span class="keyword">throws</span> URISyntaxException, IOException, InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 执行创建文件夹操作</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">mkdirs</span> <span class="operator">=</span> fs.mkdirs(<span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;/xiyou/huaguoshan2&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 文件上传</span></span><br><span class="line"><span class="comment">     * delsrc是否删除本地文件，overwrite是否可以覆盖</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testPut</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        fs.copyFromLocalFile(<span class="literal">false</span>, <span class="literal">true</span>, <span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;D:\\xiyou\\huaguoshan1\\test.txt&quot;</span>), <span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;/xiyou/huaguoshan&quot;</span>));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 文件下载</span></span><br><span class="line"><span class="comment">     * delSrc下载之后源文件是否删除，src源文件的路径，dst目标地址路径</span></span><br><span class="line"><span class="comment">     * 下载之后会产生一个crc，是用来校验的</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testGet</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        fs.copyToLocalFile(<span class="literal">false</span>, <span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;/xiyou/huaguoshan/test.txt&quot;</span>), <span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;d:\\&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 文件删除</span></span><br><span class="line"><span class="comment">     * b参数含义是是否递归删除rm-f</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testRm</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        fs.delete(<span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;/xiyou/huaguoshan2&quot;</span>), <span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 文件的移动cp拷贝，mv移动</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testCp</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 参数一源文件路径，参数二目标文件的路径</span></span><br><span class="line">        <span class="comment">// 对文件名字的修改</span></span><br><span class="line">        fs.rename(<span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;/xiyou/huaguoshan/test.txt&quot;</span>), <span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;/xiyou/huaguoshan/ss.txt&quot;</span>));</span><br><span class="line">        <span class="comment">// 移动的同时对文件进行更名</span></span><br><span class="line">        fs.rename(<span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;/xiyou/huaguoshan/ss.txt&quot;</span>), <span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;/input/ss2.txt&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//目录更名</span></span><br><span class="line">        fs.rename(<span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;/input&quot;</span>), <span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;/output&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取文件详情</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getDetail</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        RemoteIterator&lt;LocatedFileStatus&gt; listFiles = fs.listFiles(<span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;/&quot;</span>), <span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">while</span> (listFiles.hasNext()) &#123;</span><br><span class="line">            <span class="type">LocatedFileStatus</span> <span class="variable">fileStatus</span> <span class="operator">=</span> listFiles.next();</span><br><span class="line">            System.out.println(<span class="string">&quot;==========&quot;</span> + fileStatus.getPath() + <span class="string">&quot;========&quot;</span>);</span><br><span class="line">            System.out.println(fileStatus.getPermission());</span><br><span class="line">            System.out.println(fileStatus.getOwner());</span><br><span class="line">            System.out.println(fileStatus.getGroup());</span><br><span class="line">            System.out.println(fileStatus.getLen());</span><br><span class="line">            System.out.println(fileStatus.getModificationTime());</span><br><span class="line">            System.out.println(fileStatus.getBlockSize());</span><br><span class="line">            System.out.println(fileStatus.getPath().getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/29/HDFS%E7%9A%84JavaAPI%E6%93%8D%E4%BD%9C/" data-id="cl9ssim9c0000rgwv8wjbb903" data-title="" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
+More info: Generating
+Deploy to remote sites1$ hexo deploy
 
-
-
-  
-    <article id="post-HDFS读写数据流程&amp;NameNode和SecondaryNameNode工作流程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/29/HDFS%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B&NameNode%E5%92%8CSecondaryNameNode%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/" class="article-date">
-  <time class="dt-published" datetime="2022-10-28T17:47:23.603Z" itemprop="datePublished">2022-10-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="HDFS读写数据流程-amp-NameNode和SecondaryNameNode工作流程"><a href="#HDFS读写数据流程-amp-NameNode和SecondaryNameNode工作流程" class="headerlink" title="HDFS读写数据流程&amp;NameNode和SecondaryNameNode工作流程"></a>HDFS读写数据流程&amp;NameNode和SecondaryNameNode工作流程</h1><h2 id="HDFS的读写流程"><a href="#HDFS的读写流程" class="headerlink" title="HDFS的读写流程"></a>HDFS的读写流程</h2><h3 id="HDFS写数据的流程"><a href="#HDFS写数据的流程" class="headerlink" title="HDFS写数据的流程"></a>HDFS写数据的流程</h3><p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220801222526.png" alt="20220801222526"><br>（1）客户端通过 Distributed FileSystem 模块向 NameNode 请求上传文件，NameNode 检查目标文件是否已存在，父目录是否存在。<br>（2）NameNode 返回是否可以上传。<br>（3）客户端请求第一个 Block 上传到哪几个 DataNode 服务器上。<br>（4）NameNode 返回 3 个 DataNode 节点，分别为 dn1、dn2、dn3。 （5）客户端通过 FSDataOutputStream 模块请求 dn1 上传数据，dn1 收到请求会继续调用dn2，然后 dn2 调用 dn3，将这个通信管道建立完成。<br>（6）dn1、dn2、dn3 逐级应答客户端。<br>（7）客户端开始往 dn1 上传第一个 Block（先从磁盘读取数据放到一个本地内存缓存），以 Packet 为单位，dn1 收到一个 Packet 就会传给 dn2，dn2 传给 dn3；dn1 每传一个 packet<br>会放入一个应答队列等待应答。 （8）当一个 Block 传输完成之后，客户端再次请求 NameNode 上传第二个 Block 的服务<br>器。（重复执行 3-7 步）。</p>
-<h3 id="节点之间距离的计算"><a href="#节点之间距离的计算" class="headerlink" title="节点之间距离的计算"></a>节点之间距离的计算</h3><p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220801223117.png" alt="20220801223117"></p>
-<h3 id="副本存储策略选择"><a href="#副本存储策略选择" class="headerlink" title="副本存储策略选择"></a>副本存储策略选择</h3><blockquote>
-<p>For the common case, when the replication factor is three, HDFS’s placement policy is to put one replica on the local machine if the writer is on a datanode, otherwise on a random datanode, another replica on a node in a different (remote) rack, and the last on a different node in the same remote rack. This policy cuts the inter-rack write traffic which generally improves write performance. The chance of rack failure is far less than that of node failure; this policy does not impact data reliability andavailability guarantees. However, it does reduce the aggregate network bandwidth used when reading data since a block is placed in only two uniqueracks rather than three. With this policy, the replicas of a file do not evenly distribute across the racks. One third of replicas are on one node, two thirds of replicas are on one rack, and the other third are evenly distributed across the remaining racks. This policy improves write performance without compromising data reliability or read performance.</p>
-</blockquote>
-<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220801223147.png" alt="20220801223147"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> Node <span class="title function_">chooseTargetInOrder</span><span class="params">(<span class="type">int</span> numOfReplicas, Node writer, Set&lt;Node&gt; excludedNodes, <span class="type">long</span> blocksize, <span class="type">int</span> maxNodesPerRack, List&lt;DatanodeStorageInfo&gt; results, <span class="type">boolean</span> avoidStaleNodes, <span class="type">boolean</span> newBlock, EnumMap&lt;StorageType, Integer&gt; storageTypes)</span> <span class="keyword">throws</span> NotEnoughReplicasException &#123;</span><br><span class="line">       <span class="type">int</span> <span class="variable">numOfResults</span> <span class="operator">=</span> results.size();</span><br><span class="line">       <span class="keyword">if</span> (numOfResults == <span class="number">0</span>) &#123;</span><br><span class="line">           <span class="type">DatanodeStorageInfo</span> <span class="variable">storageInfo</span> <span class="operator">=</span> <span class="built_in">this</span>.chooseLocalStorage((Node)writer, excludedNodes, blocksize, maxNodesPerRack, results, avoidStaleNodes, storageTypes, <span class="literal">true</span>);</span><br><span class="line">           writer = storageInfo != <span class="literal">null</span> ? storageInfo.getDatanodeDescriptor() : <span class="literal">null</span>;</span><br><span class="line">           --numOfReplicas;</span><br><span class="line">           <span class="keyword">if</span> (numOfReplicas == <span class="number">0</span>) &#123;</span><br><span class="line">               <span class="keyword">return</span> (Node)writer;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="type">DatanodeDescriptor</span> <span class="variable">dn0</span> <span class="operator">=</span> ((DatanodeStorageInfo)results.get(<span class="number">0</span>)).getDatanodeDescriptor();</span><br><span class="line">       <span class="keyword">if</span> (numOfResults &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">           <span class="built_in">this</span>.chooseRemoteRack(<span class="number">1</span>, dn0, excludedNodes, blocksize, maxNodesPerRack, results, avoidStaleNodes, storageTypes);</span><br><span class="line">           --numOfReplicas;</span><br><span class="line">           <span class="keyword">if</span> (numOfReplicas == <span class="number">0</span>) &#123;</span><br><span class="line">               <span class="keyword">return</span> (Node)writer;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (numOfResults &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">           <span class="type">DatanodeDescriptor</span> <span class="variable">dn1</span> <span class="operator">=</span> ((DatanodeStorageInfo)results.get(<span class="number">1</span>)).getDatanodeDescriptor();</span><br><span class="line">           <span class="keyword">if</span> (<span class="built_in">this</span>.clusterMap.isOnSameRack(dn0, dn1)) &#123;</span><br><span class="line">               <span class="built_in">this</span>.chooseRemoteRack(<span class="number">1</span>, dn0, excludedNodes, blocksize, maxNodesPerRack, results, avoidStaleNodes, storageTypes);</span><br><span class="line">           &#125; <span class="keyword">else</span> <span class="keyword">if</span> (newBlock) &#123;</span><br><span class="line">               <span class="built_in">this</span>.chooseLocalRack(dn1, excludedNodes, blocksize, maxNodesPerRack, results, avoidStaleNodes, storageTypes);</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="built_in">this</span>.chooseLocalRack((Node)writer, excludedNodes, blocksize, maxNodesPerRack, results, avoidStaleNodes, storageTypes);</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           --numOfReplicas;</span><br><span class="line">           <span class="keyword">if</span> (numOfReplicas == <span class="number">0</span>) &#123;</span><br><span class="line">               <span class="keyword">return</span> (Node)writer;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="built_in">this</span>.chooseRandom(numOfReplicas, <span class="string">&quot;&quot;</span>, excludedNodes, blocksize, maxNodesPerRack, results, avoidStaleNodes, storageTypes);</span><br><span class="line">       <span class="keyword">return</span> (Node)writer;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="HDFS读数据的流程"><a href="#HDFS读数据的流程" class="headerlink" title="HDFS读数据的流程"></a>HDFS读数据的流程</h3><p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220801224446.png" alt="20220801224446"><br>（1）客户端通过 DistributedFileSystem 向 NameNode 请求下载文件，NameNode 通过查询元数据，找到文件块所在的 DataNode 地址。<br>（2）挑选一台 DataNode（就近原则，然后随机）服务器，请求读取数据。 （3）DataNode 开始传输数据给客户端（从磁盘里面读取数据输入流，以 Packet 为单位来做校验）。<br>（4）客户端以 Packet 为单位接收，先在本地缓存，然后写入目标文件。</p>
-<h2 id="NameNode和SecondaryNameNode"><a href="#NameNode和SecondaryNameNode" class="headerlink" title="NameNode和SecondaryNameNode"></a>NameNode和SecondaryNameNode</h2><p>思考：NameNode 中的元数据是存储在哪里的？<br>首先，我们做个假设，如果存储在 NameNode 节点的磁盘中，因为经常需要进行随机访问，还有响应客户请求，必然是效率过低。因此，元数据需要存放在内存中。但如果只存在内存中，一旦断电，元数据丢失，整个集群就无法工作了。因此产生在磁盘中备份元数据FsImage。<br>这样又会带来新的问题，当在内存中的元数据更新时，如果同时更新 FsImage，就会导致效率过低，但如果不更新，就会发生一致性问题，一旦 NameNode 节点断电，就会产生数据丢失。因此，引入 Edits 文件（只进行追加操作不进行计算，效率很高）。每当元数据有更新或者添加元数据时，修改内存中的元数据并追加到 Edits 中。这样，一旦 NameNode 节点断电，可以通过 FsImage 和 Edits 的合并，合成元数据。有些类似于redis的持久化策略。<br><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220801225141.png" alt="20220801225141"></p>
-<h3 id="具体执行的流程"><a href="#具体执行的流程" class="headerlink" title="具体执行的流程"></a>具体执行的流程</h3><p>1）第一阶段：NameNode 启动<br>（1）第一次启动 NameNode 格式化后，创建 Fsimage 和 Edits 文件，如果不是第一次启动，直接加载编辑日志和镜像文件到内存。<br>（2）客户端对元数据进行增删改的请求。<br>（3）NameNode 记录操作日志，更新滚动日志。<br>（4）NameNode 在内存中对元数据进行增删改。<br>2）第二阶段：Secondary NameNode 工作<br>（1）Secondary NameNode 询问 NameNode 是否需要 CheckPoint。直接带回 NameNode是否检查结果。<br>（2）Secondary NameNode 请求执行 CheckPoint。<br>（3）NameNode 滚动正在写的 Edits 日志。<br>（4）将滚动前的编辑日志和镜像文件拷贝到 Secondary NameNode。 （5）Secondary NameNode 加载编辑日志和镜像文件到内存，并合并。<br>（6）生成新的镜像文件 fsimage.chkpoint。<br>（7）拷贝 fsimage.chkpoint 到 NameNode。 （8）NameNode 将 fsimage.chkpoint 重新命名成 fsimage</p>
-<h3 id="Fsimage和Edit解析"><a href="#Fsimage和Edit解析" class="headerlink" title="Fsimage和Edit解析"></a>Fsimage和Edit解析</h3><p>NameNode被格式化之后，将在&#x2F;opt&#x2F;module&#x2F;hadoop-3.1.3&#x2F;data&#x2F;dfs&#x2F;name&#x2F;current目录中产生如下文件</p>
-<blockquote>
-<p>fsimage_0000000000000000000<br>fsimage_0000000000000000000.md5<br>seen_txid<br>VERSION</p>
-</blockquote>
-<p>（1）Fsimage文件：HDFS文件系统元数据的一个永久性的检查点，其中包含HDFS文件系统的所有目录和文件inode的序列化信息。<br>（2）Edits文件：存放HDFS文件系统的所有更新操作的路径，文件系统客户端执行的所有写操作首先会被记录到Edits文件中。<br>（3）seen_txid文件保存的是一个数字，就是最后一个edits_的数字<br>（4）每 次NameNode启动的时候都会将Fsimage文件读入内存，加 载Edits里面的更新操作，保证内存中的元数据信息是最新的、同步的，可以看成NameNode启动的时候就将Fsimage和Edits文件进行了合并。</p>
-<h3 id="使用oiv查看fsimage文件"><a href="#使用oiv查看fsimage文件" class="headerlink" title="使用oiv查看fsimage文件"></a>使用oiv查看fsimage文件</h3><p>基本语法<br>hdfs oiv -p 文件类型 -i 镜像文件 -o 转换后文件输出路径</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hdfs oiv -p XML -i </span><br><span class="line">fsimage_0000000000000000025 -o /opt/module/hadoop-3.1.3/fsimage.xml</span><br></pre></td></tr></table></figure>
-<p>可以保存到本机使用sublime查看</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">inode</span>&gt;</span><span class="tag">&lt;<span class="name">id</span>&gt;</span>16564<span class="tag">&lt;/<span class="name">id</span>&gt;</span><span class="tag">&lt;<span class="name">type</span>&gt;</span>DIRECTORY<span class="tag">&lt;/<span class="name">type</span>&gt;</span><span class="tag">&lt;<span class="name">name</span>&gt;</span>xiyou<span class="tag">&lt;/<span class="name">name</span>&gt;</span><span class="tag">&lt;<span class="name">mtime</span>&gt;</span>1659234702823<span class="tag">&lt;/<span class="name">mtime</span>&gt;</span><span class="tag">&lt;<span class="name">permission</span>&gt;</span>caojun:supergroup:0755<span class="tag">&lt;/<span class="name">permission</span>&gt;</span><span class="tag">&lt;<span class="name">nsquota</span>&gt;</span>-1<span class="tag">&lt;/<span class="name">nsquota</span>&gt;</span><span class="tag">&lt;<span class="name">dsquota</span>&gt;</span>-1<span class="tag">&lt;/<span class="name">dsquota</span>&gt;</span><span class="tag">&lt;/<span class="name">inode</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">directory</span>&gt;</span><span class="tag">&lt;<span class="name">parent</span>&gt;</span>16559<span class="tag">&lt;/<span class="name">parent</span>&gt;</span><span class="tag">&lt;<span class="name">child</span>&gt;</span>16560<span class="tag">&lt;/<span class="name">child</span>&gt;</span><span class="tag">&lt;<span class="name">child</span>&gt;</span>16568<span class="tag">&lt;/<span class="name">child</span>&gt;</span><span class="tag">&lt;<span class="name">child</span>&gt;</span>16561<span class="tag">&lt;/<span class="name">child</span>&gt;</span><span class="tag">&lt;<span class="name">child</span>&gt;</span>16562<span class="tag">&lt;/<span class="name">child</span>&gt;</span><span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>所以HDFS文件关系是树形的结构</p>
-<p>思考：可以看出，Fsimage 中没有记录块所对应 DataNode，为什么？</p>
-<p>在集群启动后，要求 DataNode 上报数据块信息，并间隔一段时间后再次上报。</p>
-<h3 id="使用oev查看Edits文件"><a href="#使用oev查看Edits文件" class="headerlink" title="使用oev查看Edits文件"></a>使用oev查看Edits文件</h3><p>hdfs oev -p 文件类型 -i 编辑日志 -o 转换后文件输出路径</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs oiv -p XML -i  fsimage_0000000000000001035 -o /opt/module/fsimage.xml </span><br></pre></td></tr></table></figure>
-<p>xml如下</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">EDITS</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">EDITS_VERSION</span>&gt;</span>-63<span class="tag">&lt;/<span class="name">EDITS_VERSION</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">RECORD</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">OPCODE</span>&gt;</span>OP_START_LOG_SEGMENT<span class="tag">&lt;/<span class="name">OPCODE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">DATA</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">TXID</span>&gt;</span>129<span class="tag">&lt;/<span class="name">TXID</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">DATA</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">RECORD</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">RECORD</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">OPCODE</span>&gt;</span>OP_ADD<span class="tag">&lt;/<span class="name">OPCODE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">DATA</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">TXID</span>&gt;</span>130<span class="tag">&lt;/<span class="name">TXID</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LENGTH</span>&gt;</span>0<span class="tag">&lt;/<span class="name">LENGTH</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">INODEID</span>&gt;</span>16407<span class="tag">&lt;/<span class="name">INODEID</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">PATH</span>&gt;</span>/hello7.txt<span class="tag">&lt;/<span class="name">PATH</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">REPLICATION</span>&gt;</span>2<span class="tag">&lt;/<span class="name">REPLICATION</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">MTIME</span>&gt;</span>1512943607866<span class="tag">&lt;/<span class="name">MTIME</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ATIME</span>&gt;</span>1512943607866<span class="tag">&lt;/<span class="name">ATIME</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">BLOCKSIZE</span>&gt;</span>134217728<span class="tag">&lt;/<span class="name">BLOCKSIZE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">CLIENT_NAME</span>&gt;</span>DFSClient_NONMAPREDUCE_-</span><br><span class="line">1544295051_1<span class="tag">&lt;/<span class="name">CLIENT_NAME</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">CLIENT_MACHINE</span>&gt;</span>192.168.10.102<span class="tag">&lt;/<span class="name">CLIENT_MACHINE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">OVERWRITE</span>&gt;</span>true<span class="tag">&lt;/<span class="name">OVERWRITE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">PERMISSION_STATUS</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">USERNAME</span>&gt;</span>atguigu<span class="tag">&lt;/<span class="name">USERNAME</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">GROUPNAME</span>&gt;</span>supergroup<span class="tag">&lt;/<span class="name">GROUPNAME</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">MODE</span>&gt;</span>420<span class="tag">&lt;/<span class="name">MODE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">PERMISSION_STATUS</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">RPC_CLIENTID</span>&gt;</span>908eafd4-9aec-4288-96f1-</span><br><span class="line">e8011d181561<span class="tag">&lt;/<span class="name">RPC_CLIENTID</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">RPC_CALLID</span>&gt;</span>0<span class="tag">&lt;/<span class="name">RPC_CALLID</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">DATA</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">RECORD</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">RECORD</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">OPCODE</span>&gt;</span>OP_ALLOCATE_BLOCK_ID<span class="tag">&lt;/<span class="name">OPCODE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">DATA</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">TXID</span>&gt;</span>131<span class="tag">&lt;/<span class="name">TXID</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">BLOCK_ID</span>&gt;</span>1073741839<span class="tag">&lt;/<span class="name">BLOCK_ID</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">DATA</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">RECORD</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">RECORD</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">OPCODE</span>&gt;</span>OP_SET_GENSTAMP_V2<span class="tag">&lt;/<span class="name">OPCODE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">DATA</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">TXID</span>&gt;</span>132<span class="tag">&lt;/<span class="name">TXID</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">GENSTAMPV2</span>&gt;</span>1016<span class="tag">&lt;/<span class="name">GENSTAMPV2</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>可以看到只进行追加不进行合并修改</p>
-<p>思考：NameNode 如何确定下次开机启动的时候合并哪些 Edits？<br><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220801114850.png" alt="20220801114850"><br>这里有很多的Edits版本，只合并大于fsimage版本的</p>
-<blockquote>
-<p>间隔一小时就会合并<br>开关机，集群关闭会合并</p>
-</blockquote>
-<p>需要注意的是2NN和NN差的信edits_inprogress_0000000000000001054这里</p>
-<h3 id="checkpoint时间设置"><a href="#checkpoint时间设置" class="headerlink" title="checkpoint时间设置"></a>checkpoint时间设置</h3><p>一，通常情况下，SecondaryNameNode 每隔一小时执行一次<br>[hdfs-default.xml]</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.checkpoint.period<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>3600s<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>默认时间是一个小时<br>二，一分钟检查一次操作次数，当操作次数达到 1 百万时，SecondaryNameNode 执行一次</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.checkpoint.txns<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>1000000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">description</span>&gt;</span>操作动作次数<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.checkpoint.check.period<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">value</span>&gt;</span>60s<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">description</span>&gt;</span> 1 分钟检查一次操作次数<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/29/HDFS%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B&NameNode%E5%92%8CSecondaryNameNode%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/" data-id="cl9ssima10002rgwv6noj1yaa" data-title="" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Hadoop概述架构" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/29/Hadoop%E6%A6%82%E8%BF%B0%E6%9E%B6%E6%9E%84/" class="article-date">
-  <time class="dt-published" datetime="2022-10-28T17:42:49.594Z" itemprop="datePublished">2022-10-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h1><h2 id="HDFS架构概述"><a href="#HDFS架构概述" class="headerlink" title="HDFS架构概述"></a>HDFS架构概述</h2><p>Hadoop Distributed File System，简称 HDFS，是一个分布式文件系统。</p>
-<p>具体组成</p>
-<h3 id="NameNode"><a href="#NameNode" class="headerlink" title="NameNode"></a>NameNode</h3><p>整个数据的存储情况</p>
-<p>存储文件的<strong>元数据</strong>，如<strong>文件名，文件目录结构，文件属性</strong>（生成时间、副本数、</p>
-<p>文件权限），以及每个文件的<strong>块列表</strong>和块所在的DataNode等。</p>
-<h3 id="DataNode"><a href="#DataNode" class="headerlink" title="DataNode"></a>DataNode</h3><p>具体的存储数据</p>
-<p>在本地文件系统<strong>存储文件块数据</strong>，以及<strong>块数据的校验和</strong>。</p>
-<h3 id="2NN"><a href="#2NN" class="headerlink" title="2NN"></a>2NN</h3><p>辅助Namenode工作</p>
-<p><strong>每隔一段时间对</strong> <strong>NameNode</strong> <strong>元数据备份</strong></p>
-<h2 id="YARN架构概述"><a href="#YARN架构概述" class="headerlink" title="YARN架构概述"></a>YARN架构概述</h2><p>Yet Another Resource Negotiator 简称 YARN ，另一种资源协调者，是 Hadoop 的资源管理器。</p>
-<h3 id="ResourceManager（RM）"><a href="#ResourceManager（RM）" class="headerlink" title="ResourceManager（RM）"></a>ResourceManager（RM）</h3><p>所有资源的管理者，整个集群资源（内存、CPU等）的老大</p>
-<h3 id="NodeManager（N-M）"><a href="#NodeManager（N-M）" class="headerlink" title="NodeManager（N M）"></a>NodeManager（N M）</h3><p>单节点资源的管理者，单个节点服务器资源老大</p>
-<h3 id="ApplicationMaster（AM）"><a href="#ApplicationMaster（AM）" class="headerlink" title="ApplicationMaster（AM）"></a>ApplicationMaster（AM）</h3><p>由客户端提交的任务，单个任务运行的老大，任务运行在container容器中</p>
-<h3 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h3><p>容器，相当一台独立的服务器，里面封装了任务运行所需的内存，cpu，网络等资源</p>
-<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com/image-20220710093509988.png" alt="image-20220710093509988"></p>
-<p>此处有些类似于docker容器技术，任务使用资源结束之后可以自动释放，使用的更加灵活</p>
-<h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><p>客户端可以有多个</p>
-<p>集群上可以运行多个ApplicationMaster</p>
-<p>每个NodeManager容器可以有多个Container容器</p>
-<h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>MapReduce 将计算过程分为两个阶段：Map 和 Reduce</p>
-<p>1）Map 阶段并行处理输入数据</p>
-<p>2）Reduce 阶段对 Map 结果进行汇总</p>
-<p>三者的协同工作</p>
-<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com/image-20220710094458373.png" alt="image-20220710094458373"></p>
-<p>大数据的生态体系</p>
-<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com/image-20220710095111067.png" alt="image-20220710095111067"></p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>部署在Linux上</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">longestPalindrome</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(s) == <span class="number">2</span> <span class="keyword">and</span> s[<span class="number">1</span>] == s[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">return</span> s</span><br><span class="line"></span><br><span class="line">        res = s[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            j = <span class="number">0</span></span><br><span class="line">            <span class="comment"># 当边界在旁边的时候</span></span><br><span class="line">            <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                <span class="keyword">if</span> i - j == <span class="number">0</span> <span class="keyword">or</span> i + j == <span class="built_in">len</span>(s) - <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">if</span> i == <span class="number">0</span> <span class="keyword">and</span> <span class="built_in">len</span>(s) &gt;= <span class="number">2</span> <span class="keyword">and</span> s[i] == s[i + <span class="number">1</span>]  <span class="keyword">and</span> <span class="built_in">len</span>(res) &lt; <span class="number">2</span>:</span><br><span class="line">                        res=s[<span class="number">0</span>:<span class="number">2</span>]</span><br><span class="line">                    <span class="keyword">if</span> s[i - j] == s[i + j] <span class="keyword">and</span> <span class="built_in">len</span>(res) &lt; <span class="built_in">len</span>(s[i - j:i + j + <span class="number">1</span>]):</span><br><span class="line">                        res = s[i - j:i + j + <span class="number">1</span>]</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">if</span> s[i - j] != s[i + j]:</span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">len</span>(res) &lt; <span class="built_in">len</span>(s[i - j + <span class="number">1</span>:i + j]):</span><br><span class="line">                        res = s[i - j + <span class="number">1</span>:i + j]</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">if</span> i &lt;= <span class="built_in">len</span>(s) - <span class="number">1</span> <span class="keyword">and</span> s[i] == s[i + <span class="number">1</span>] <span class="keyword">and</span> <span class="built_in">len</span>(res) &lt;= <span class="number">2</span>:</span><br><span class="line">                    res = s[i:i + <span class="number">2</span>]</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = <span class="string">&quot;ac&quot;</span></span><br><span class="line">s = Solution()</span><br><span class="line"><span class="built_in">print</span>(s.longestPalindrome(a))</span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/29/Hadoop%E6%A6%82%E8%BF%B0%E6%9E%B6%E6%9E%84/" data-id="cl9ssima80004rgwvgzhy4to3" data-title="" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Hadoop序列化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/29/Hadoop%E5%BA%8F%E5%88%97%E5%8C%96/" class="article-date">
-  <time class="dt-published" datetime="2022-10-28T17:42:49.587Z" itemprop="datePublished">2022-10-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="序列化概述"><a href="#序列化概述" class="headerlink" title="序列化概述"></a>序列化概述</h2><h3 id="什么是序列化"><a href="#什么是序列化" class="headerlink" title="什么是序列化"></a>什么是序列化</h3><p>序列化就是把内存中的对象，转换成字节序列（或其他数据传输协议）以便于存储到磁盘（持久化）和网络传输。 <br>反序列化就是将收到字节序列（或其他数据传输协议）或者是磁盘的持久化数据，转换成内存中的对象。</p>
-<h3 id="为什么要序列化"><a href="#为什么要序列化" class="headerlink" title="为什么要序列化"></a>为什么要序列化</h3><p>一般来说，“活的”对象只生存在内存里，关机断电就没有了。而且“活的”对象只能由本地的进程使用，不能被发送到网络上的另外一台计算机。 然而序列化可以存储“活的”对象，可以将“活的”对象发送到远程计算机。</p>
-<h3 id="为什么不用Java的序列化"><a href="#为什么不用Java的序列化" class="headerlink" title="为什么不用Java的序列化"></a>为什么不用Java的序列化</h3><p>Java的序列化是一个重量级序列化框架（Serializable），一个对象被序列化后，会附带很多额外的信息（各种校验信息，Header，继承体系等），不便于在网络中高效传输。所以，Hadoop自己开发了一套序列化机制（Writable）。</p>
-<h3 id="Hadoop序列化特点："><a href="#Hadoop序列化特点：" class="headerlink" title="Hadoop序列化特点："></a>Hadoop序列化特点：</h3><p>（1）紧凑 ：高效使用存储空间。<br>（2）快速：读写数据的额外开销小。<br>（3）互操作：支持多语言的交互，假设一个客户端使用Java，另一个使用C++，依旧可以使用序列化</p>
-<h2 id="自定义bean对象实现序列化接口（Writable）"><a href="#自定义bean对象实现序列化接口（Writable）" class="headerlink" title="自定义bean对象实现序列化接口（Writable）"></a>自定义bean对象实现序列化接口（Writable）</h2><p>在企业开发中往往常用的基本序列化类型不能满足所有需求，比如在Hadoop框架内部传递一个bean对象，那么该对象就需要实现序列化接口。<br>具体实现bean对象序列化步骤如下7步。<br>（1）必须实现Writable接口<br>（2）反序列化时，需要反射调用空参构造函数，所以必须有空参构造<br>（3）重写序列化方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">(DataOutput out)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">	out.writeLong(upFlow);</span><br><span class="line">	out.writeLong(downFlow);</span><br><span class="line">	out.writeLong(sumFlow);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>（4）重写反序列化方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">readFields</span><span class="params">(DataInput in)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">	upFlow = in.readLong();</span><br><span class="line">	downFlow = in.readLong();</span><br><span class="line">	sumFlow = in.readLong();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>（5）注意反序列化的顺序和序列化的顺序完全一致<br>（6）要想把结果显示在文件中，需要重写toString()，可用”\t”分开，方便后续用。<br>（7）如果需要将自定义的bean放在key中传输，则还需要实现Comparable接口，因为MapReduce框中的Shuffle过程要求对key必须能排序。详见后面排序案例</p>
-<h2 id="序列化案例实操"><a href="#序列化案例实操" class="headerlink" title="序列化案例实操"></a>序列化案例实操</h2><h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>统计每一个手机号耗费的总上行流量、总下行流量、总流量<br>（1）输入数据<br><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220803163836.png" alt="20220803163836"><br>（2）输入数据格式：<br>7 	13560436666	120.196.100.99		1116		 954			200<br>id	手机号码		网络ip			上行流量  下行流量     网络状态码<br>（3）期望输出数据格式<br>13560436666 		1116		      954 			2070<br>手机号码		    上行流量        下行流量		总流量</p>
-<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p>这里如果沿用之前wordcount的思路，map阶段将一行字符串分割成一个个的KV，那就意味值一行的数据不具有特殊的含义<br>实际上，一行数据可以是一个bean，有些类似数据库的一行<br>可以将key设计成电话号码，value设计成一行的数据的bean<br><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220803164613.png" alt="20220803164613"></p>
-<h3 id="编写MapReduce程序"><a href="#编写MapReduce程序" class="headerlink" title="编写MapReduce程序"></a>编写MapReduce程序</h3><h4 id="编写流量统计的bean对象"><a href="#编写流量统计的bean对象" class="headerlink" title="编写流量统计的bean对象"></a>编写流量统计的bean对象</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Writable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.DataInput;</span><br><span class="line"><span class="keyword">import</span> java.io.DataOutput;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1.定义类实现wirtable接口</span></span><br><span class="line"><span class="comment"> * 2.重写序列化和反序列化方法</span></span><br><span class="line"><span class="comment"> * 3.重写空的构造方法</span></span><br><span class="line"><span class="comment"> * 4.toString方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FlowBean</span> <span class="keyword">implements</span> <span class="title class_">Writable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> upFlow;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> downFlow;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> sumFlow;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 这里的空构造是反射将对应的元素赋值的</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">FlowBean</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">(DataOutput dataOutput)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        dataOutput.writeLong(upFlow);</span><br><span class="line">        dataOutput.writeLong(downFlow);</span><br><span class="line">        dataOutput.writeLong(sumFlow);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">readFields</span><span class="params">(DataInput dataInput)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.upFlow = dataInput.readLong();</span><br><span class="line">        <span class="built_in">this</span>.downFlow=dataInput.readLong();</span><br><span class="line">        <span class="built_in">this</span>.sumFlow=dataInput.readLong();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getUpFlow</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> upFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUpFlow</span><span class="params">(<span class="type">long</span> upFlow)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.upFlow = upFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getDownFlow</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> downFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setDownFlow</span><span class="params">(<span class="type">long</span> downFlow)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.downFlow = downFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getSumFlow</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> sumFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSumFlow</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.sumFlow = <span class="built_in">this</span>.downFlow + <span class="built_in">this</span>.upFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重写tostring让显示的更加方便</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> upFlow + <span class="string">&quot;\t&quot;</span> + downFlow + <span class="string">&quot;\t&quot;</span> + sumFlow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="编写Mapper类"><a href="#编写Mapper类" class="headerlink" title="编写Mapper类"></a>编写Mapper类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FlowMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;LongWritable, Text, Text, FlowBean&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> Text outV=<span class="keyword">new</span> <span class="title class_">Text</span>();</span><br><span class="line">    <span class="keyword">private</span> <span class="type">FlowBean</span> <span class="variable">flowBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FlowBean</span>();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">map</span><span class="params">(LongWritable key, Text value, Mapper&lt;LongWritable, Text, Text, FlowBean&gt;.Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        String[] flowBeanStrings = value.toString().split(<span class="string">&quot;\t&quot;</span>);</span><br><span class="line">        <span class="comment">//1 13736230513	192.196.100.1	www.atguigu.com	2481	24681	200</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">phone</span> <span class="operator">=</span> flowBeanStrings[<span class="number">1</span>];</span><br><span class="line">        <span class="type">String</span> <span class="variable">upFlow</span> <span class="operator">=</span> flowBeanStrings[flowBeanStrings.length - <span class="number">3</span>];</span><br><span class="line">        <span class="type">String</span> <span class="variable">downFlow</span> <span class="operator">=</span> flowBeanStrings[flowBeanStrings.length - <span class="number">2</span>];</span><br><span class="line">        flowBean.setUpFlow(Long.parseLong(upFlow));</span><br><span class="line">        flowBean.setDownFlow(Long.parseLong(downFlow));</span><br><span class="line">        flowBean.setSumFlow();</span><br><span class="line">        outV.set(phone);</span><br><span class="line">        context.write(outV,flowBean);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="编写Reducer类"><a href="#编写Reducer类" class="headerlink" title="编写Reducer类"></a>编写Reducer类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FlowMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;LongWritable, Text, Text, FlowBean&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> Text outV=<span class="keyword">new</span> <span class="title class_">Text</span>();</span><br><span class="line">    <span class="keyword">private</span> <span class="type">FlowBean</span> <span class="variable">flowBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FlowBean</span>();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">map</span><span class="params">(LongWritable key, Text value, Mapper&lt;LongWritable, Text, Text, FlowBean&gt;.Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        String[] flowBeanStrings = value.toString().split(<span class="string">&quot;\t&quot;</span>);</span><br><span class="line">        <span class="comment">//1 13736230513	192.196.100.1	www.atguigu.com	2481	24681	200</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">phone</span> <span class="operator">=</span> flowBeanStrings[<span class="number">1</span>];</span><br><span class="line">        <span class="type">String</span> <span class="variable">upFlow</span> <span class="operator">=</span> flowBeanStrings[flowBeanStrings.length - <span class="number">3</span>];</span><br><span class="line">        <span class="type">String</span> <span class="variable">downFlow</span> <span class="operator">=</span> flowBeanStrings[flowBeanStrings.length - <span class="number">2</span>];</span><br><span class="line">        flowBean.setUpFlow(Long.parseLong(upFlow));</span><br><span class="line">        flowBean.setDownFlow(Long.parseLong(downFlow));</span><br><span class="line">        flowBean.setSumFlow();</span><br><span class="line">        outV.set(phone);</span><br><span class="line">        context.write(outV,flowBean);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="编写Driver类"><a href="#编写Driver类" class="headerlink" title="编写Driver类"></a>编写Driver类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FlowDriver</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InterruptedException, ClassNotFoundException &#123;</span><br><span class="line">        <span class="comment">// 1获得Job</span></span><br><span class="line">        Configuration config=<span class="keyword">new</span> <span class="title class_">Configuration</span>();</span><br><span class="line">        <span class="type">Job</span> <span class="variable">job</span> <span class="operator">=</span> Job.getInstance();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2设置jar包路径</span></span><br><span class="line">        job.setJarByClass(FlowDriver.class);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3job设置mapper和reducer的class</span></span><br><span class="line">        job.setMapperClass(FlowMapper.class);</span><br><span class="line">        job.setReducerClass(FlowReducer.class);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4设置map的输出kv类型</span></span><br><span class="line">        job.setMapOutputValueClass(FlowBean.class);</span><br><span class="line">        job.setMapOutputKeyClass(Text.class);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5设置最终输出的Kv</span></span><br><span class="line">        job.setOutputValueClass(FlowBean.class);</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 6设置输入输出路径</span></span><br><span class="line">        FileInputFormat.addInputPath(job,<span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;D:\\迅雷下载\\11_input\\inputflow&quot;</span>));</span><br><span class="line">        FileOutputFormat.setOutputPath(job,<span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;D:\\Javabigdata\\Hadoop\\我的Hadoop笔记\\日常文件\\flowoutput&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 7提交</span></span><br><span class="line">        job.waitForCompletion(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">        System.exit(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>这里的序列化的写入和写出顺序一定要正确<br><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220803181234.png" alt="20220803181234"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/29/Hadoop%E5%BA%8F%E5%88%97%E5%8C%96/" data-id="cl9ssima50003rgwvaiskcfra" data-title="" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/29/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2022-10-28T16:12:06.243Z" itemprop="datePublished">2022-10-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/10/29/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/29/hello-world/" data-id="cl9ssimaa0005rgwv0hbr60fk" data-title="Hello World" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2022/10/29/HDFS%E7%9A%84shell%E5%91%BD%E4%BB%A4/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2022/10/29/HDFS%E7%9A%84JavaAPI%E6%93%8D%E4%BD%9C/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2022/10/29/HDFS%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B&NameNode%E5%92%8CSecondaryNameNode%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2022/10/29/Hadoop%E6%A6%82%E8%BF%B0%E6%9E%B6%E6%9E%84/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2022/10/29/Hadoop%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2022 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+More info: Deployment
+</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">John Doe</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><div class="content"><a class="title" href="/2022/10/29/HDFS%E7%9A%84shell%E5%91%BD%E4%BB%A4/" title="No title">No title</a><time datetime="2022-10-28T17:47:23.621Z" title="Created 2022-10-29 01:47:23">2022-10-29</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/10/29/HDFS%E7%9A%84JavaAPI%E6%93%8D%E4%BD%9C/" title="No title">No title</a><time datetime="2022-10-28T17:47:23.614Z" title="Created 2022-10-29 01:47:23">2022-10-29</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/10/29/HDFS%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B&amp;NameNode%E5%92%8CSecondaryNameNode%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/" title="No title">No title</a><time datetime="2022-10-28T17:47:23.603Z" title="Created 2022-10-29 01:47:23">2022-10-29</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/10/29/Hadoop%E6%A6%82%E8%BF%B0%E6%9E%B6%E6%9E%84/" title="No title">No title</a><time datetime="2022-10-28T17:42:49.594Z" title="Created 2022-10-29 01:42:49">2022-10-29</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/2022/10/29/Hadoop%E5%BA%8F%E5%88%97%E5%8C%96/" title="No title">No title</a><time datetime="2022-10-28T17:42:49.587Z" title="Created 2022-10-29 01:42:49">2022-10-29</time></div></div></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/10/"><span class="card-archive-list-date">October 2022</span><span class="card-archive-list-count">6</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">6</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Push :</div><div class="item-count" id="last-push-date" data-lastPushDate="2022-10-28T18:09:28.335Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By John Doe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
