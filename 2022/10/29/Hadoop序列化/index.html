@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="序列化概述什么是序列化序列化就是把内存中的对象，转换成字节序列（或其他数据传输协议）以便于存储到磁盘（持久化）和网络传输。 反序列化就是将收到字节序列（或其他数据传输协议）或者是磁盘的持久化数据，转换成内存中的对象。 为什么要序列化一般来说，“活的”对象只生存在内存里，关机断电就没有了。而且“活的”对象只能由本地的进程使用，不能被发送到网络上的另外一台计算机。 然而序列化可以存储“活的”对象，可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/10/29/Hadoop%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="序列化概述什么是序列化序列化就是把内存中的对象，转换成字节序列（或其他数据传输协议）以便于存储到磁盘（持久化）和网络传输。 反序列化就是将收到字节序列（或其他数据传输协议）或者是磁盘的持久化数据，转换成内存中的对象。 为什么要序列化一般来说，“活的”对象只生存在内存里，关机断电就没有了。而且“活的”对象只能由本地的进程使用，不能被发送到网络上的另外一台计算机。 然而序列化可以存储“活的”对象，可以">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220803163836.png">
+<meta property="og:image" content="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220803164613.png">
+<meta property="og:image" content="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220803181234.png">
+<meta property="article:published_time" content="2022-10-28T17:42:49.587Z">
+<meta property="article:modified_time" content="2022-08-03T10:43:40.196Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220803163836.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Hadoop序列化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/29/Hadoop%E5%BA%8F%E5%88%97%E5%8C%96/" class="article-date">
+  <time class="dt-published" datetime="2022-10-28T17:42:49.587Z" itemprop="datePublished">2022-10-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="序列化概述"><a href="#序列化概述" class="headerlink" title="序列化概述"></a>序列化概述</h2><h3 id="什么是序列化"><a href="#什么是序列化" class="headerlink" title="什么是序列化"></a>什么是序列化</h3><p>序列化就是把内存中的对象，转换成字节序列（或其他数据传输协议）以便于存储到磁盘（持久化）和网络传输。 <br>反序列化就是将收到字节序列（或其他数据传输协议）或者是磁盘的持久化数据，转换成内存中的对象。</p>
+<h3 id="为什么要序列化"><a href="#为什么要序列化" class="headerlink" title="为什么要序列化"></a>为什么要序列化</h3><p>一般来说，“活的”对象只生存在内存里，关机断电就没有了。而且“活的”对象只能由本地的进程使用，不能被发送到网络上的另外一台计算机。 然而序列化可以存储“活的”对象，可以将“活的”对象发送到远程计算机。</p>
+<h3 id="为什么不用Java的序列化"><a href="#为什么不用Java的序列化" class="headerlink" title="为什么不用Java的序列化"></a>为什么不用Java的序列化</h3><p>Java的序列化是一个重量级序列化框架（Serializable），一个对象被序列化后，会附带很多额外的信息（各种校验信息，Header，继承体系等），不便于在网络中高效传输。所以，Hadoop自己开发了一套序列化机制（Writable）。</p>
+<h3 id="Hadoop序列化特点："><a href="#Hadoop序列化特点：" class="headerlink" title="Hadoop序列化特点："></a>Hadoop序列化特点：</h3><p>（1）紧凑 ：高效使用存储空间。<br>（2）快速：读写数据的额外开销小。<br>（3）互操作：支持多语言的交互，假设一个客户端使用Java，另一个使用C++，依旧可以使用序列化</p>
+<h2 id="自定义bean对象实现序列化接口（Writable）"><a href="#自定义bean对象实现序列化接口（Writable）" class="headerlink" title="自定义bean对象实现序列化接口（Writable）"></a>自定义bean对象实现序列化接口（Writable）</h2><p>在企业开发中往往常用的基本序列化类型不能满足所有需求，比如在Hadoop框架内部传递一个bean对象，那么该对象就需要实现序列化接口。<br>具体实现bean对象序列化步骤如下7步。<br>（1）必须实现Writable接口<br>（2）反序列化时，需要反射调用空参构造函数，所以必须有空参构造<br>（3）重写序列化方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">(DataOutput out)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">	out.writeLong(upFlow);</span><br><span class="line">	out.writeLong(downFlow);</span><br><span class="line">	out.writeLong(sumFlow);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（4）重写反序列化方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">readFields</span><span class="params">(DataInput in)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">	upFlow = in.readLong();</span><br><span class="line">	downFlow = in.readLong();</span><br><span class="line">	sumFlow = in.readLong();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（5）注意反序列化的顺序和序列化的顺序完全一致<br>（6）要想把结果显示在文件中，需要重写toString()，可用”\t”分开，方便后续用。<br>（7）如果需要将自定义的bean放在key中传输，则还需要实现Comparable接口，因为MapReduce框中的Shuffle过程要求对key必须能排序。详见后面排序案例</p>
+<h2 id="序列化案例实操"><a href="#序列化案例实操" class="headerlink" title="序列化案例实操"></a>序列化案例实操</h2><h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>统计每一个手机号耗费的总上行流量、总下行流量、总流量<br>（1）输入数据<br><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220803163836.png" alt="20220803163836"><br>（2）输入数据格式：<br>7 	13560436666	120.196.100.99		1116		 954			200<br>id	手机号码		网络ip			上行流量  下行流量     网络状态码<br>（3）期望输出数据格式<br>13560436666 		1116		      954 			2070<br>手机号码		    上行流量        下行流量		总流量</p>
+<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p>这里如果沿用之前wordcount的思路，map阶段将一行字符串分割成一个个的KV，那就意味值一行的数据不具有特殊的含义<br>实际上，一行数据可以是一个bean，有些类似数据库的一行<br>可以将key设计成电话号码，value设计成一行的数据的bean<br><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220803164613.png" alt="20220803164613"></p>
+<h3 id="编写MapReduce程序"><a href="#编写MapReduce程序" class="headerlink" title="编写MapReduce程序"></a>编写MapReduce程序</h3><h4 id="编写流量统计的bean对象"><a href="#编写流量统计的bean对象" class="headerlink" title="编写流量统计的bean对象"></a>编写流量统计的bean对象</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Writable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.DataInput;</span><br><span class="line"><span class="keyword">import</span> java.io.DataOutput;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1.定义类实现wirtable接口</span></span><br><span class="line"><span class="comment"> * 2.重写序列化和反序列化方法</span></span><br><span class="line"><span class="comment"> * 3.重写空的构造方法</span></span><br><span class="line"><span class="comment"> * 4.toString方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FlowBean</span> <span class="keyword">implements</span> <span class="title class_">Writable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> upFlow;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> downFlow;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> sumFlow;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 这里的空构造是反射将对应的元素赋值的</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">FlowBean</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">(DataOutput dataOutput)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        dataOutput.writeLong(upFlow);</span><br><span class="line">        dataOutput.writeLong(downFlow);</span><br><span class="line">        dataOutput.writeLong(sumFlow);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">readFields</span><span class="params">(DataInput dataInput)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="built_in">this</span>.upFlow = dataInput.readLong();</span><br><span class="line">        <span class="built_in">this</span>.downFlow=dataInput.readLong();</span><br><span class="line">        <span class="built_in">this</span>.sumFlow=dataInput.readLong();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getUpFlow</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> upFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUpFlow</span><span class="params">(<span class="type">long</span> upFlow)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.upFlow = upFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getDownFlow</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> downFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setDownFlow</span><span class="params">(<span class="type">long</span> downFlow)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.downFlow = downFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getSumFlow</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> sumFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSumFlow</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.sumFlow = <span class="built_in">this</span>.downFlow + <span class="built_in">this</span>.upFlow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重写tostring让显示的更加方便</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> upFlow + <span class="string">&quot;\t&quot;</span> + downFlow + <span class="string">&quot;\t&quot;</span> + sumFlow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="编写Mapper类"><a href="#编写Mapper类" class="headerlink" title="编写Mapper类"></a>编写Mapper类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FlowMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;LongWritable, Text, Text, FlowBean&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> Text outV=<span class="keyword">new</span> <span class="title class_">Text</span>();</span><br><span class="line">    <span class="keyword">private</span> <span class="type">FlowBean</span> <span class="variable">flowBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FlowBean</span>();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">map</span><span class="params">(LongWritable key, Text value, Mapper&lt;LongWritable, Text, Text, FlowBean&gt;.Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        String[] flowBeanStrings = value.toString().split(<span class="string">&quot;\t&quot;</span>);</span><br><span class="line">        <span class="comment">//1 13736230513	192.196.100.1	www.atguigu.com	2481	24681	200</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">phone</span> <span class="operator">=</span> flowBeanStrings[<span class="number">1</span>];</span><br><span class="line">        <span class="type">String</span> <span class="variable">upFlow</span> <span class="operator">=</span> flowBeanStrings[flowBeanStrings.length - <span class="number">3</span>];</span><br><span class="line">        <span class="type">String</span> <span class="variable">downFlow</span> <span class="operator">=</span> flowBeanStrings[flowBeanStrings.length - <span class="number">2</span>];</span><br><span class="line">        flowBean.setUpFlow(Long.parseLong(upFlow));</span><br><span class="line">        flowBean.setDownFlow(Long.parseLong(downFlow));</span><br><span class="line">        flowBean.setSumFlow();</span><br><span class="line">        outV.set(phone);</span><br><span class="line">        context.write(outV,flowBean);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="编写Reducer类"><a href="#编写Reducer类" class="headerlink" title="编写Reducer类"></a>编写Reducer类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FlowMapper</span> <span class="keyword">extends</span> <span class="title class_">Mapper</span>&lt;LongWritable, Text, Text, FlowBean&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> Text outV=<span class="keyword">new</span> <span class="title class_">Text</span>();</span><br><span class="line">    <span class="keyword">private</span> <span class="type">FlowBean</span> <span class="variable">flowBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FlowBean</span>();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">map</span><span class="params">(LongWritable key, Text value, Mapper&lt;LongWritable, Text, Text, FlowBean&gt;.Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        String[] flowBeanStrings = value.toString().split(<span class="string">&quot;\t&quot;</span>);</span><br><span class="line">        <span class="comment">//1 13736230513	192.196.100.1	www.atguigu.com	2481	24681	200</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">phone</span> <span class="operator">=</span> flowBeanStrings[<span class="number">1</span>];</span><br><span class="line">        <span class="type">String</span> <span class="variable">upFlow</span> <span class="operator">=</span> flowBeanStrings[flowBeanStrings.length - <span class="number">3</span>];</span><br><span class="line">        <span class="type">String</span> <span class="variable">downFlow</span> <span class="operator">=</span> flowBeanStrings[flowBeanStrings.length - <span class="number">2</span>];</span><br><span class="line">        flowBean.setUpFlow(Long.parseLong(upFlow));</span><br><span class="line">        flowBean.setDownFlow(Long.parseLong(downFlow));</span><br><span class="line">        flowBean.setSumFlow();</span><br><span class="line">        outV.set(phone);</span><br><span class="line">        context.write(outV,flowBean);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="编写Driver类"><a href="#编写Driver类" class="headerlink" title="编写Driver类"></a>编写Driver类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FlowDriver</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InterruptedException, ClassNotFoundException &#123;</span><br><span class="line">        <span class="comment">// 1获得Job</span></span><br><span class="line">        Configuration config=<span class="keyword">new</span> <span class="title class_">Configuration</span>();</span><br><span class="line">        <span class="type">Job</span> <span class="variable">job</span> <span class="operator">=</span> Job.getInstance();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2设置jar包路径</span></span><br><span class="line">        job.setJarByClass(FlowDriver.class);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3job设置mapper和reducer的class</span></span><br><span class="line">        job.setMapperClass(FlowMapper.class);</span><br><span class="line">        job.setReducerClass(FlowReducer.class);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4设置map的输出kv类型</span></span><br><span class="line">        job.setMapOutputValueClass(FlowBean.class);</span><br><span class="line">        job.setMapOutputKeyClass(Text.class);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5设置最终输出的Kv</span></span><br><span class="line">        job.setOutputValueClass(FlowBean.class);</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 6设置输入输出路径</span></span><br><span class="line">        FileInputFormat.addInputPath(job,<span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;D:\\迅雷下载\\11_input\\inputflow&quot;</span>));</span><br><span class="line">        FileOutputFormat.setOutputPath(job,<span class="keyword">new</span> <span class="title class_">Path</span>(<span class="string">&quot;D:\\Javabigdata\\Hadoop\\我的Hadoop笔记\\日常文件\\flowoutput&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 7提交</span></span><br><span class="line">        job.waitForCompletion(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">        System.exit(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>这里的序列化的写入和写出顺序一定要正确<br><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com//20220803181234.png" alt="20220803181234"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/29/Hadoop%E5%BA%8F%E5%88%97%E5%8C%96/" data-id="cl9ssima50003rgwvaiskcfra" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/10/29/Hadoop%E6%A6%82%E8%BF%B0%E6%9E%B6%E6%9E%84/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/10/29/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/10/29/HDFS%E7%9A%84shell%E5%91%BD%E4%BB%A4/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/29/HDFS%E7%9A%84JavaAPI%E6%93%8D%E4%BD%9C/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/29/HDFS%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B&NameNode%E5%92%8CSecondaryNameNode%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/29/Hadoop%E6%A6%82%E8%BF%B0%E6%9E%B6%E6%9E%84/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/29/Hadoop%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
