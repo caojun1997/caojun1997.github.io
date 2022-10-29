@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>svm图像分类器 | 炸牛奶超级甜</title><meta name="author" content="Jun Cao"><meta name="copyright" content="Jun Cao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="SVM图像分类器线性分类器回顾Knn图像分类的任务，就是从已有的固定分类标签集合中选择一个并分配给一张图像。cs231n中还介绍了k-Nearest Neighbor （k-NN）分类器，该分类器的基本思想是通过将测试图像与训练集带标签的图像进行比较，来给测试图像打上分类标签。k-Nearest Neighbor分类器存在以下不足：  分类器只是简单储存所有训练数据，然后和未来测试数据比较。没有处">
+<meta property="og:type" content="article">
+<meta property="og:title" content="svm图像分类器">
+<meta property="og:url" content="http://example.com/2022/10/29/svm%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%99%A8/index.html">
+<meta property="og:site_name" content="炸牛奶超级甜">
+<meta property="og:description" content="SVM图像分类器线性分类器回顾Knn图像分类的任务，就是从已有的固定分类标签集合中选择一个并分配给一张图像。cs231n中还介绍了k-Nearest Neighbor （k-NN）分类器，该分类器的基本思想是通过将测试图像与训练集带标签的图像进行比较，来给测试图像打上分类标签。k-Nearest Neighbor分类器存在以下不足：  分类器只是简单储存所有训练数据，然后和未来测试数据比较。没有处">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-29T07:17:45.000Z">
+<meta property="article:modified_time" content="2022-10-29T08:26:52.754Z">
+<meta property="article:author" content="Jun Cao">
+<meta name="twitter:card" content="summary"><link rel="shortcut icon" href="/img/my.JPG"><link rel="canonical" href="http://example.com/2022/10/29/svm%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%99%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'svm图像分类器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-29 16:26:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/my.JPG" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">炸牛奶超级甜</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">svm图像分类器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-29T07:17:45.000Z" title="发表于 2022-10-29 15:17:45">2022-10-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-10-29T08:26:52.754Z" title="更新于 2022-10-29 16:26:52">2022-10-29</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="svm图像分类器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="SVM图像分类器"><a href="#SVM图像分类器" class="headerlink" title="SVM图像分类器"></a>SVM图像分类器</h1><h2 id="线性分类器"><a href="#线性分类器" class="headerlink" title="线性分类器"></a>线性分类器</h2><h3 id="回顾Knn"><a href="#回顾Knn" class="headerlink" title="回顾Knn"></a>回顾Knn</h3><p>图像分类的任务，就是从已有的固定分类标签集合中选择一个并分配给一张图像。cs231n中还介绍了k-Nearest Neighbor （k-NN）分类器，该分类器的基本思想是通过将测试图像与训练集带标签的图像进行比较，来给测试图像打上分类标签。k-Nearest Neighbor分类器存在以下不足：</p>
+<ul>
+<li>分类器只是简单储存所有训练数据，然后和未来测试数据比较。没有处理的数据直接储存非常浪费。</li>
+<li>对一个测试图像进行分类需要和所有训练图像作比较，算法计算资源耗费高。</li>
+</ul>
+<p>概述。我们现在要开发一个更强大图像分类的函数。这个函数将包括两个主要部分:</p>
+<p>**得分函数(score function)**：将原始数据映射到班级分数</p>
+<p><strong>损失函数(loss function)：</strong>量化预测得分和地面真相标签之间的一致性。</p>
+<p>现在就已经将这个得分问题转换为一个最优化问题，也就是最小化这个的损失函数。</p>
+<h3 id="从图像到标签分值的参数化映射"><a href="#从图像到标签分值的参数化映射" class="headerlink" title="从图像到标签分值的参数化映射"></a>从图像到标签分值的参数化映射</h3><p><strong>得分函数</strong>，这个函数将图像的像素值映射为各个分类类别的得分，得分高低仅代表图像属于该类别的可能性高低。</p>
+<p>看一个具体的例子。</p>
+<p>举例来说，在CIFAR-10中，我们有一个<strong>N</strong>&#x3D;50000的训练集，每个图像有<strong>D</strong>&#x3D;32x32x3&#x3D;3072个像素，而<strong>K</strong>&#x3D;10，这是因为图片被分为10个不同的类别（狗，猫，汽车等）。现在得分函数是：$f:R^D→R^K$，该函数是原始图像像素到分类分值的映射。</p>
+<p>简单来说就是输入的是像素值输出的是最后的得分。</p>
+<p>下面是cs231n给出的精确描述</p>
+<p>现在假设有一个包含很多图像的训练集$x_i∈R^D$，每个图像都有一个对应的分类标签$y_i$。这里$i&#x3D;1,2…N$并且$y_i∈1…K$。这就是说，我们有<strong>N</strong>个图像样例，每个图像的维度是<strong>D</strong>，共有<strong>K</strong>种不同的分类。</p>
+<h3 id="线性分类器-1"><a href="#线性分类器-1" class="headerlink" title="线性分类器"></a>线性分类器</h3><p>一个最简单的线性映射：</p>
+<p>$f(x_i,W,b)&#x3D;Wx_i+b$</p>
+<p>在上面的公式中，假设每个图像数据都被拉长为一个长度为D的列向量，大小为[D x 1]。其中大小为[K x D]的矩阵<strong>W</strong>和大小为[K x 1]列向量<strong>b</strong>为该函数的<strong>参数</strong>。</p>
+<p>这里可以看一以CIFAR-10的例子，$x_i$就包含了第$i$个图像的所有像素信息，这些信息被拉成为一个[3072 x 1]的列向量，<strong>W</strong>大小为[10x3072]，<strong>b</strong>的大小为[10x1]。因此，3072个数字（原始像素数值）输入函数，函数输出10个数字（不同分类得到的分值）。参数<strong>W</strong>被称为<strong>权重（weights）</strong>。<strong>b</strong>被称为<strong>偏差向量（bias vector）</strong>，这是因为它影响输出数值，但是并不和原始数据xi产生关联。在实际情况中，人们常常混用<strong>权重</strong>和<strong>参数</strong>这两个术语。</p>
+<p><strong>需要注意的几点：</strong></p>
+<ul>
+<li>首先，一个单独的矩阵乘法$Wx_i$就高效地并行评估10个不同的分类器（每个分类器针对一个分类），其中每个类的分类器就是W的一个行向量。</li>
+<li>注意我们认为输入数据$(x_i,y_i)$是给定且不可改变的，但参数<strong>W</strong>和<strong>b</strong>是可控制改变的。我们的目标就是通过设置这些参数，使得计算出来的分类分值情况和训练集中图像数据的真实类别标签相符。</li>
+<li>该方法的一个优势是训练数据是用来学习到参数<strong>W</strong>和<strong>b</strong>的，一旦训练完成，训练数据就可以丢弃，留下学习到的参数即可。这是因为一个测试图像可以简单地输入函数，并基于计算出的分类分值来进行分类。</li>
+<li>最后，注意只需要做一个矩阵乘法和一个矩阵加法就能对一个测试数据分类，这比k-NN中将测试图像和所有训练数据做比较的方法快多了。</li>
+</ul>
+<h3 id="理解线性分类器"><a href="#理解线性分类器" class="headerlink" title="理解线性分类器"></a>理解线性分类器</h3><h4 id="理解W的作用"><a href="#理解W的作用" class="headerlink" title="理解W的作用"></a>理解W的作用</h4><p>线性分类器计算图像中3个颜色通道中所有像素的值与权重的矩阵乘，简单来说就是将图片拉伸成为一个列向量然后和W进行相乘，从而得到分类分值。根据我们对权重设置的值，对于图像中的某些位置的某些颜色，函数表现出喜好或者厌恶。</p>
+<p>有一个简单的例子，可以想象“船”分类就是被大量的蓝色所包围（对应的就是水）。那么“船”分类器在蓝色通道上的权重就有很多的正权重（它们的出现提高了“船”分类的分值），而在绿色和红色通道上的权重为负的就比较多（它们的出现降低了“船”分类的分值）。</p>
+<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com/image-20221029154825917.png" alt="image-20221029154825917"></p>
+<p>一个将图像映射到分类分值的例子。为了便于可视化，假设图像只有4个像素（都是黑白像素，这里不考虑RGB通道），有3个分类（红色代表猫，绿色代表狗，蓝色代表船，注意，这里的红、绿和蓝3种颜色仅代表分类，和RGB通道没有关系）。首先将图像像素拉伸为一个列向量，与W进行矩阵乘，然后得到各个分类的分值。需要注意的是，这个W一点也不好：猫分类的分值非常低。从上图来看，算法倒是觉得这个图像是一只狗。</p>
+<h4 id="理解空间中的分类"><a href="#理解空间中的分类" class="headerlink" title="理解空间中的分类"></a>理解空间中的分类</h4><p><strong>将图像看做高维度的点</strong>：既然图像被伸展成为了一个高维度的列向量，那么我们可以把图像看做这个高维度空间中的一个点（即每张图像是3072维空间中的一个点）。整个数据集就是一个点的集合，每个点都带有1个分类标签。</p>
+<p>既然定义每个分类类别的分值是权重和图像的矩阵乘，那么每个分类类别的分数就是这个空间中的一个线性函数的函数值。我们没办法可视化3072维空间中的线性函数，但假设把这些维度挤压到二维，那么就可以看看这些分类器在做什么了：</p>
+<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com/image-20221029155130346.png" alt="image-20221029155130346"></p>
+<p>图像空间的示意图。其中每个图像是一个点，有3个分类器。以红色的汽车分类器为例，红线表示空间中汽车分类分数为0的点的集合，红色的箭头表示分值上升的方向。所有红线右边的点的分数值均为正，且线性升高。红线左边的点分值为负，且线性降低。</p>
+<p>从上面可以看到，<strong>W</strong>的每一行都是一个分类类别的分类器。<strong>对于这些数字的几何解释是：如果改变其中一行的数字，会看见分类器在空间中对应的直线开始向着不同方向旋转</strong>。而偏差<strong>b</strong>，则允许分类器对应的直线平移。需要注意的是，如果没有偏差，无论权重如何，在xi&#x3D;0时分类分值始终为0。这样所有分类器的线都不得不穿过原点。</p>
+<h4 id="将线性分类器看做模板匹配"><a href="#将线性分类器看做模板匹配" class="headerlink" title="将线性分类器看做模板匹配"></a><strong>将线性分类器看做模板匹配</strong></h4><p>关于权重<strong>W</strong>的另一个解释是<strong>它</strong>的每一行对应着一个分类的模板（有时候也叫作<em>原型</em>）。一张图像对应不同分类的得分，是通过使用内积（也叫<em>点积</em>）来比较图像和模板，然后找到和哪个模板最相似。</p>
+<p>这里需要注意一下线性代数的相关知识，两个向量相乘的结果可以表示这两个向量之间的相似程度，也就是说W和图像相乘就是代表图像和哪一个类别更相似。</p>
+<p>从这个角度来看，线性分类器就是在利用学习到的模板，针对图像做模板匹配。从另一个角度来看，可以认为还是在高效地使用k-NN，不同的是我们没有使用所有的训练集的图像来比较，而是每个类别只用了一张图片（这张图片是我们学习到的，而不是训练集中的某一张），<strong>而且我们会使用（负）内积来计算向量间的距离，而不是使用L1或者L2距离</strong>。</p>
+<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com/templates.jpg" alt="image-20221029155130346"></p>
+<p>将课程进度快进一点。这里展示的是以CIFAR-10为训练集，学习结束后的权重的例子。注意，船的模板如期望的那样有很多蓝色像素。如果图像是一艘船行驶在大海上，那么这个模板利用内积计算图像将给出很高的分数。</p>
+<p>可以看到马的模板看起来似乎是两个头的马，这是因为训练集中的马的图像中马头朝向各有左右造成的。线性分类器将这两种情况融合到一起了。类似的，汽车的模板看起来也是将几个不同的模型融合到了一个模板中，并以此来分辨不同方向不同颜色的汽车。这个模板上的车是红色的，这是因为CIFAR-10中训练集的车大多是红色的。线性分类器对于不同颜色的车的分类能力是很弱的，但是后面可以看到神经网络是可以完成这一任务的。神经网络可以在它的隐藏层中实现中间神经元来探测不同种类的车（比如绿色车头向左，蓝色车头向前等）。而下一层的神经元通过计算不同的汽车探测器的权重和，将这些合并为一个更精确的汽车分类分值。</p>
+<h4 id="偏差和权重的合并技巧："><a href="#偏差和权重的合并技巧：" class="headerlink" title="偏差和权重的合并技巧："></a><strong>偏差和权重的合并技巧</strong>：</h4><p> 在进一步学习前，要提一下这个经常使用的技巧。它能够将我们常用的参数W和b合二为一。回忆一下，分类评分函数定义为：</p>
+<p>$f(x_i,W,b)&#x3D;Wx_i+b$</p>
+<p>分开处理这两个参数（权重参数W和偏差参数b）有点笨拙，一般常用的方法是把两个参数放到同一个矩阵中，同时$x_i$向量就要增加一个维度，这个维度的数值是常量1，这就是默认的<em>偏差维度</em>。这样新的公式就简化成下面这样：</p>
+<p>$f(x_i,W)&#x3D;Wx_i$</p>
+<p>从数据维度来看也就是说</p>
+<p>$x_i$的维度从[3072×1]变成了[3073×1]，W大小就是[10x3073]了。</p>
+<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com/image-20221029160734303.png" alt="image-20221029160734303"></p>
+<p>偏差技巧的示意图。左边是先做矩阵乘法然后做加法，右边是将所有输入向量的维度增加1个含常量1的维度，并且在权重矩阵中增加一个偏差列，最后做一个矩阵乘法即可。左右是等价的。通过右边这样做，我们就只需要学习一个权重矩阵，而不用去学习两个分别装着权重和偏差的矩阵了。</p>
+<h3 id="图像数据预处理"><a href="#图像数据预处理" class="headerlink" title="图像数据预处理"></a><strong>图像数据预处理</strong></h3><p>在上面的例子中，所有图像都是使用的原始像素值（从0到255）。在机器学习中，对于输入的特征做归一化（normalization）处理是常见的套路。而在图像分类的例子中，图像上的每个像素可以看做一个特征。在实践中，对每个特征减去平均值来<strong>中心化</strong>数据是非常重要的。在这些图片的例子中，该步骤意味着根据训练集中所有的图像计算出一个平均图像值，然后每个图像都减去这个平均值，这样图像的像素值就大约分布在[-127, 127]之间了。下一个常见步骤是，让所有数值分布的区间变为[-1, 1]。<strong>零均值的中心化</strong>是很重要的，等我们理解了梯度下降后再来详细解释。</p>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>在线性分类器定义了从图像像素值到所属类别的评分函数（score function），该函数的参数是权重矩阵W。在函数中，数据$(x_i,y_i)$是给定的，不能修改。但是我们可以调整权重矩阵这个参数，使得评分函数的结果与训练数据集中图像的真实类别一致，即评分函数在正确的分类的位置应当得到最高的评分（score）。</p>
+<p>回到之前那张猫的图像分类例子，它有针对“猫”，“狗”，“船”三个类别的分数。我们看到例子中权重值非常差，因为猫分类的得分非常低（-96.8），而狗（437.9）和船（61.95）比较高。我们将使用<strong>损失函数Loss Function）</strong>（有时也叫<strong>代价函数</strong>Cost Function<strong>或</strong>目标函数**）来衡量我们对结果的不满意程度。</p>
+<p>简单的说，当得分函数输出结果与真实结果之间差异越大，损失函数输出越大，反之越小。</p>
+<h2 id="多类支持向量机损失"><a href="#多类支持向量机损失" class="headerlink" title="多类支持向量机损失"></a>多类支持向量机损失</h2><p>Multiclass Support Vector Machine Loss</p>
+<p>损失函数的具体形式多种多样。首先，介绍常用的多类支持向量机（SVM）损失函数。SVM的损失函数想要SVM在正确分类上的得分始终比不正确分类上的得分高出一个边界值Δ。</p>
+<p>我们可以把损失函数想象成一个人，这位SVM先生（或者女士）对于结果有自己的品位，如果某个结果能使得损失值更低，那么SVM就更加喜欢它。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Jun Cao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/10/29/svm%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%99%A8/">http://example.com/2022/10/29/svm%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%99%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">炸牛奶超级甜</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/10/29/HDFS%E6%8A%80%E6%9C%AF/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">HDFS技术</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/my.JPG" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Jun Cao</div><div class="author-info__description">简单记录学习生活</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SVM%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">SVM图像分类器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text">线性分类器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E9%A1%BEKnn"><span class="toc-number">1.1.1.</span> <span class="toc-text">回顾Knn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E5%9B%BE%E5%83%8F%E5%88%B0%E6%A0%87%E7%AD%BE%E5%88%86%E5%80%BC%E7%9A%84%E5%8F%82%E6%95%B0%E5%8C%96%E6%98%A0%E5%B0%84"><span class="toc-number">1.1.2.</span> <span class="toc-text">从图像到标签分值的参数化映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8-1"><span class="toc-number">1.1.3.</span> <span class="toc-text">线性分类器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%90%86%E8%A7%A3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8"><span class="toc-number">1.1.4.</span> <span class="toc-text">理解线性分类器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%90%86%E8%A7%A3W%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">理解W的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%90%86%E8%A7%A3%E7%A9%BA%E9%97%B4%E4%B8%AD%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">理解空间中的分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E7%9C%8B%E5%81%9A%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D"><span class="toc-number">1.1.4.3.</span> <span class="toc-text">将线性分类器看做模板匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%81%8F%E5%B7%AE%E5%92%8C%E6%9D%83%E9%87%8D%E7%9A%84%E5%90%88%E5%B9%B6%E6%8A%80%E5%B7%A7%EF%BC%9A"><span class="toc-number">1.1.4.4.</span> <span class="toc-text">偏差和权重的合并技巧：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">1.1.5.</span> <span class="toc-text">图像数据预处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%B1%BB%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%E6%8D%9F%E5%A4%B1"><span class="toc-number">1.3.</span> <span class="toc-text">多类支持向量机损失</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/10/29/svm%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%99%A8/" title="svm图像分类器"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="svm图像分类器"/></a><div class="content"><a class="title" href="/2022/10/29/svm%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%99%A8/" title="svm图像分类器">svm图像分类器</a><time datetime="2022-10-29T07:17:45.000Z" title="发表于 2022-10-29 15:17:45">2022-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/29/HDFS%E6%8A%80%E6%9C%AF/" title="HDFS技术"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HDFS技术"/></a><div class="content"><a class="title" href="/2022/10/29/HDFS%E6%8A%80%E6%9C%AF/" title="HDFS技术">HDFS技术</a><time datetime="2022-10-28T18:19:50.000Z" title="发表于 2022-10-29 02:19:50">2022-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/29/HDFS%E7%9A%84shell%E5%91%BD%E4%BB%A4/" title="HDFS的shell命令"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HDFS的shell命令"/></a><div class="content"><a class="title" href="/2022/10/29/HDFS%E7%9A%84shell%E5%91%BD%E4%BB%A4/" title="HDFS的shell命令">HDFS的shell命令</a><time datetime="2022-10-28T17:47:23.621Z" title="发表于 2022-10-29 01:47:23">2022-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/29/HDFS%E7%9A%84JavaAPI%E6%93%8D%E4%BD%9C/" title="HDFS的JavaAPI操作"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HDFS的JavaAPI操作"/></a><div class="content"><a class="title" href="/2022/10/29/HDFS%E7%9A%84JavaAPI%E6%93%8D%E4%BD%9C/" title="HDFS的JavaAPI操作">HDFS的JavaAPI操作</a><time datetime="2022-10-28T17:47:23.614Z" title="发表于 2022-10-29 01:47:23">2022-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/29/HDFS%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B&amp;NameNode%E5%92%8CSecondaryNameNode%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/" title="HDFS读写数据流程&amp;NameNode和SecondaryNameNode工作流程"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HDFS读写数据流程&amp;NameNode和SecondaryNameNode工作流程"/></a><div class="content"><a class="title" href="/2022/10/29/HDFS%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B&amp;NameNode%E5%92%8CSecondaryNameNode%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/" title="HDFS读写数据流程&amp;NameNode和SecondaryNameNode工作流程">HDFS读写数据流程&amp;NameNode和SecondaryNameNode工作流程</a><time datetime="2022-10-28T17:47:23.603Z" title="发表于 2022-10-29 01:47:23">2022-10-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Jun Cao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
