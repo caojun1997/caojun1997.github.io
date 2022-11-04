@@ -1,0 +1,292 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CS231n 4:反向传播 | 炸牛奶超级甜</title><meta name="author" content="Jun Cao"><meta name="copyright" content="Jun Cao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="简介 本章是帮助读者建立对反向传播形成直观而专业的理解。反向传播是利用链式法则递归计算表达式的梯度的方法。理解反向传播过程及其精妙之处，对于理解、实现、设计和调试神经网络非常关键。 问题陈述：这节的核心问题是：给定函数$f(x)$，其中$x$是输入数据的向量，需要计算函数$f$关于$x$的梯度，也就$\nabla  f(x)$。 目标：之所以关注上述问题，是因为在神经网络中$f$对应的是损失函数$">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS231n 4:反向传播">
+<meta property="og:url" content="http://example.com/2022/10/30/CS231n/CS231n%205%EF%BC%9A%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="炸牛奶超级甜">
+<meta property="og:description" content="简介 本章是帮助读者建立对反向传播形成直观而专业的理解。反向传播是利用链式法则递归计算表达式的梯度的方法。理解反向传播过程及其精妙之处，对于理解、实现、设计和调试神经网络非常关键。 问题陈述：这节的核心问题是：给定函数$f(x)$，其中$x$是输入数据的向量，需要计算函数$f$关于$x$的梯度，也就$\nabla  f(x)$。 目标：之所以关注上述问题，是因为在神经网络中$f$对应的是损失函数$">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.tensorflownews.com/wp-content/uploads/2018/03/%E5%9B%BE%E7%89%8716.png">
+<meta property="article:published_time" content="2022-10-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-30T16:29:37.929Z">
+<meta property="article:author" content="Jun Cao">
+<meta property="article:tag" content="优化策略">
+<meta property="article:tag" content="CS231n">
+<meta property="article:tag" content="反向传播">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.tensorflownews.com/wp-content/uploads/2018/03/%E5%9B%BE%E7%89%8716.png"><link rel="shortcut icon" href="data:image/png;base64,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"><link rel="canonical" href="http://example.com/2022/10/30/CS231n/CS231n%205%EF%BC%9A%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AC%94%E8%AE%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CS231n 4:反向传播',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-31 00:29:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://marketplace.canva.cn/EAEsSrIavXA/2/0/1600w/canva-lqyXLROcj-k.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/%20category/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">炸牛奶超级甜</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/%20category/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">CS231n 4:反向传播</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-29T16:00:00.000Z" title="发表于 2022-10-30 00:00:00">2022-10-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-10-30T16:29:37.929Z" title="更新于 2022-10-31 00:29:37">2022-10-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CS231n 4:反向传播"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="简介">简介</h2>
+<p>本章是帮助读者建立对<strong>反向传播</strong>形成直观而专业的理解。反向传播是利用<strong>链式法则</strong>递归计算表达式的梯度的方法。理解反向传播过程及其精妙之处，对于理解、实现、设计和调试神经网络非常<strong>关键</strong>。</p>
+<p><strong>问题陈述</strong>：这节的核心问题是：给定函数$f(x)$，其中$x$是输入数据的向量，需要计算函数$f$关于$x$的梯度，也就$\nabla  f(x)$。</p>
+<p><strong>目标</strong>：之所以关注上述问题，是因为在神经网络中$f$对应的是损失函数$L$，输入$x$里面包含训练数据和神经网络的权重。举个例子，损失函数可以是SVM的损失函数，输入则包含了训练数据$(x_i,y_i),i=1…N$,权重$W$和偏差$b$。注意训练集是给定的（在机器学习中通常都是这样），而权重是可以控制的变量。因此，即使能用反向传播计算输入数据$x_i$上的梯度，但在实践为了进行参数更新，通常也只计算参数（比如$(W,b)$）的梯度。然而</p>
+<center> $x_i$</center>
+<p>的梯度有时仍然是有用的：比如将神经网络所做的事情可视化便于直观理解的时候，就能用上。</p>
+<p>如果读者之前对于利用链式法则计算偏微分已经很熟练，仍然建议浏览本篇笔记。因为它呈现了一个相对成熟的反向传播视角，在该视角中能看见基于实数值回路的反向传播过程，而对其细节的理解和收获将帮助读者更好地通过本课程。</p>
+<h2 id="简单表达式和理解梯度">简单表达式和理解梯度</h2>
+<p>从简单表达式入手可以为复杂表达式打好符号和规则基础。先考虑一个简单的二元乘法函数![f(x,y)=xy][22]。对两个输入变量分别求偏导数还是很简单的：</p>
+<center>$f(x,y)=xy \to \frac {df}{dx}=y \frac {df}{dy}=x$</center>
+<p><strong>解释</strong>：牢记这些导数的意义：函数变量在某个点周围的极小区域内变化，而导数就是变量变化导致的函数在该方向上的变化率。</p>
+<center>$\frac{df(x)}{dx}= lim_{h \to 0}\frac{f(x+h)-f(x)}{h}$</center>
+<p>注意等号左边的分号和等号右边的分号不同，不是代表分数。相反，这个符号表示操作符$\frac{d}{dx}$被应用于函数![f][13]，并返回一个不同的函数（导数）。对于上述公式，可以认为$h$值非常小，函数可以被一条直线近似，而导数就是这条直线的斜率。换句话说，每个变量的导数指明了整个表达式对于该变量的值的敏感程度。比如，若$x=4,y=-3$，则$f(x,y)=-12$，$x$的导数$\frac{\partial f}{\partial x}=-3$。这就说明如果将变量![x][12]的值变大一点，整个表达式的值就会变小（原因在于负号），而且变小的量是![x][12]变大的量的三倍。通过重新排列公式可以看到这一点$f(x+h)=f(x)+h \frac{df(x)}{dx}$。同样，因为$\frac{\partial f}{\partial y}=4$，可以知道如果将$y$的值增加$h$，那么函数的输出也将增加（原因在于正号），且增加量是$4h$。</p>
+<blockquote>
+<p>函数关于每个变量的导数指明了整个表达式对于该变量的敏感程度。</p>
+</blockquote>
+<p>如上所述，梯度$\nabla f$是偏导数的向量，所以有$\nabla  f(x)=[\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}]=[y,x]]$。即使是梯度实际上是一个向量，仍然通常使用类似&quot;<em>x上的梯度</em>&quot;的术语，而不是使用如&quot;<em>x的偏导数</em>&quot;的正确说法，原因是因为前者说起来简单。</p>
+<p>我们也可以对加法操作求导：</p>
+<p>$f(x,y)=x+y \to \frac {df}{dx}=1 \quad \frac {df}{dy}=1$</p>
+<p>这就是说，无论其值如何变化，$x,y$的导数均为1。这是有道理的，因为无论增加$x,y$中任一个的值，函数$f$的值都会增加，并且增加的变化率独立于$x,y$的具体值（情况和乘法操作不同）。取最大值操作也是常常使用的：<br>
+$ f(x,y)=max(x,y) \to \frac {df}{dx}=1 (x \gt=y) \quad \frac {df}{dy}=1 (y\gt=x)$</p>
+<h2 id="使用链式法则计算复合表达式">使用链式法则计算复合表达式</h2>
+<p>现在考虑更复杂的包含多个函数的复合函数，比如$f(x,y,z)=(x+y)z$。虽然这个表达足够简单，可以直接微分，但是在此使用一种有助于读者直观理解反向传播的方法。将公式分成两部分：$q=x+y$和$f=qz$。在前面已经介绍过如何对这分开的两个公式进行计算，因为$f$是$q$和$z$相乘，所以$\frac{\partial f}{\partial q}=z,\frac{\partial f}{\partial z}=q$，又因为$q$是$x$加$y$，所以$\frac{\partial q}{\partial x}=1,\frac{\partial q}{\partial y}=1$。然而，并不需要关心中间量$q$的梯度，因为$\frac{\partial f}{\partial q}$没有用。相反，函数$f$关于$x,y,z$的梯度才是需要关注的。<strong>链式法则</strong>指出将这些梯度表达式链接起来的正确方式是相乘，比如$\frac{\partial f}{\partial x}=\frac{\partial f}{\partial q}\frac{\partial q}{\partial x}$。在实际操作中，这只是简单地将两个梯度数值相乘，示例代码如下：</p>
+<p>​</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置输入值</span></span><br><span class="line">x = -<span class="number">2</span>; y = <span class="number">5</span>; z = -<span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行前向传播</span></span><br><span class="line">q = x + y <span class="comment"># q becomes 3</span></span><br><span class="line">f = q * z <span class="comment"># f becomes -12</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行反向传播:</span></span><br><span class="line"><span class="comment"># 首先回传到 f = q * z</span></span><br><span class="line">dfdz = q <span class="comment"># df/dz = q, 所以关于z的梯度是3</span></span><br><span class="line">dfdq = z <span class="comment"># df/dq = z, 所以关于q的梯度是-4</span></span><br><span class="line"><span class="comment"># 现在回传到q = x + y</span></span><br><span class="line">dfdx = <span class="number">1.0</span> * dfdq <span class="comment"># dq/dx = 1. 这里的乘法是因为链式法则</span></span><br><span class="line">dfdy = <span class="number">1.0</span> * dfdq <span class="comment"># dq/dy = 1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>最后得到变量的梯度[<strong>dfdx, dfdy, dfdz]</strong>，它们告诉我们函数<strong>f</strong>对于变量[<strong>x, y, z]<strong>的敏感程度。这是一个最简单的反向传播。一般会使用一个更简洁的表达符号，这样就不用写</strong>df</strong>了。==这就是说，用<strong>dq</strong>来代替<strong>dfdq</strong>，且总是假设梯度是关于最终输出的。==</p>
+<p>这次计算可以被可视化为如下计算线路图像：</p>
+<hr>
+<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com/image-20221031002315121.png" alt="image-20221031002315121"></p>
+<p>上图的真实值计算线路展示了计算的视觉化过程。<strong>前向传播</strong>从输入计算到输出（绿色），<strong>反向传播</strong>从尾部开始，根据链式法则递归地向前计算梯度（显示为红色），一直到网络的输入端。可以认为，梯度是从计算链路中回流。</p>
+<hr>
+<h2 id="反向传播的直观理解">反向传播的直观理解</h2>
+<p>反向传播是一个优美的局部过程。在整个计算线路图中，每个门单元都会得到一些输入并立即计算两个东西：</p>
+<ol>
+<li>这个门的输出值</li>
+<li>其输出值关于输入值的局部梯度</li>
+<li>门单元完成这两件事是完全独立的，它不需要知道计算线路中的其他细节。然而，一旦前向传播完毕，在反向传播的过程中，门单元门将最终获得整个网络的最终输出值在自己的输出值上的梯度。链式法则指出，门单元应该将回传的梯度乘以它对其的输入的局部梯度，从而得到整个网络的输出对该门单元的每个输入值的梯度。</li>
+</ol>
+<blockquote>
+<p>这里对于每个输入的乘法操作是基于链式法则的。该操作让一个相对独立的门单元变成复杂计算线路中不可或缺的一部分，这个复杂计算线路可以是神经网络等。</p>
+</blockquote>
+<p>下面通过例子来对这一过程进行理解。加法门收到了输入[-2, 5]，计算输出是3。既然这个门是加法操作，那么对于两个输入的局部梯度都是+1。网络的其余部分计算出最终值为-12。在反向传播时将递归地使用链式法则，算到加法门（是乘法门的输入）的时候，知道加法门的输出的梯度是-4。如果网络如果想要输出值更高，那么可以认为它会想要加法门的输出更小一点（因为负号），而且还有一个4的倍数。继续递归并对梯度使用链式法则，加法门拿到梯度，然后把这个梯度分别乘到每个输入值的局部梯度（就是让-4乘以<strong>x</strong>和<strong>y</strong>的局部梯度，x和y的局部梯度都是1，所以最终都是-4）。可以看到得到了想要的效果：如果<strong>x，y减小</strong>（它们的梯度为负），那么加法门的输出值减小，这会让乘法门的输出值增大。</p>
+<p>因此，反向传播可以看做是门单元之间在通过梯度信号相互通信，只要让它们的输入沿着梯度方向变化，无论它们自己的输出值在何种程度上升或降低，都是为了让整个网络的输出值更高。</p>
+<h2 id="模块化：Sigmoid例子">模块化：Sigmoid例子</h2>
+<p>上面介绍的门是相对随意的。任何可微分的函数都可以看做门。可以将多个门组合成一个门，也可以根据需要将一个函数分拆成多个门。现在看看一个表达式：</p>
+<p>$ f(w,x)=\frac{1}{1+e^{-(w_0x_0+w_1x_1+w_2)}}$</p>
+<p>在后面的课程中可以看到，这个表达式描述了一个含输入<strong>x</strong>和权重<strong>w</strong>的2维的神经元，该神经元使用了_sigmoid激活_函数。但是现在只是看做是一个简单的输入为x和w，输出为一个数字的函数。这个函数是由多个门组成的。除了上文介绍的加法门，乘法门，取最大值门，还有下面这4种：</p>
+<p>$ f(x)=\frac{1}{x} \to \frac{df}{dx}=-1/x^2$</p>
+<p>$f_c(x)=c+x \to \frac{df}{dx}=1$</p>
+<p>$f(x)=e^x \to \frac{df}{dx}=e^x$</p>
+<p>$ f_a(x)=ax \to \frac{df}{dx}=a$</p>
+<p>其中，函数$f_c$使用对输入值进行了常量$c$的平移，$f_a$将输入值扩大了常量$a$倍。它们是加法和乘法的特例，但是这里将其看做一元门单元，因为确实需要计算常量$(c,a)$的梯度。整个计算线路如下：</p>
+<hr>
+<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com/image-20221031002342595.png" alt="image-20221031002342595"></p>
+<p>使用sigmoid激活函数的2维神经元的例子。输入是[x0, x1]，可学习的权重是[w0, w1, w2]。一会儿会看见，这个神经元对输入数据做点积运算，然后其激活数据被sigmoid函数挤压到0到1之间。</p>
+<hr>
+<p>在上面的例子中可以看见一个函数操作的长链条，链条上的门都对<strong>w</strong>和<strong>x</strong>的点积结果进行操作。该函数被称为sigmoid函数$\sigma (x)$。sigmoid函数关于其输入的求导是可以简化的(使用了在分子上先加后减1的技巧)：</p>
+<p>$\sigma(x)=\frac{1}{1+e^{-x}}$</p>
+<p>$\to \frac{d\sigma (x)}{dx}=\frac{e^{-x}}{(1+e^{-x})^2}=(\frac {1+e^{-x}-1}{1+e^{-x}})(\frac{1}{1+e^{-x}})=(1-\sigma(x))\sigma(x)$]</p>
+<p>可以看到梯度计算简单了很多。举个例子，sigmoid表达式输入为1.0，则在前向传播中计算出输出为0.73。根据上面的公式，局部梯度为(1-0.73)*0.73~=0.2，和之前的计算流程比起来，现在的计算使用一个单独的简单表达式即可。因此，在实际的应用中将这些操作装进一个单独的门单元中将会非常有用。该神经元反向传播的代码实现如下：</p>
+<p>​</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">w = [<span class="number">2</span>,-<span class="number">3</span>,-<span class="number">3</span>] <span class="comment"># 假设一些随机数据和权重</span></span><br><span class="line">x = [-<span class="number">1</span>, -<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 前向传播</span></span><br><span class="line">dot = w[<span class="number">0</span>]*x[<span class="number">0</span>] + w[<span class="number">1</span>]*x[<span class="number">1</span>] + w[<span class="number">2</span>]</span><br><span class="line">f = <span class="number">1.0</span> / (<span class="number">1</span> + math.exp(-dot)) <span class="comment"># sigmoid函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对神经元反向传播</span></span><br><span class="line">ddot = (<span class="number">1</span> - f) * f <span class="comment"># 点积变量的梯度, 使用sigmoid函数求导</span></span><br><span class="line">dx = [w[<span class="number">0</span>] * ddot, w[<span class="number">1</span>] * ddot] <span class="comment"># 回传到x</span></span><br><span class="line">dw = [x[<span class="number">0</span>] * ddot, x[<span class="number">1</span>] * ddot, <span class="number">1.0</span> * ddot] <span class="comment"># 回传到w</span></span><br><span class="line"><span class="comment"># 完成！得到输入的梯度</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>实现提示：分段反向传播</strong>。上面的代码展示了在实际操作中，为了使反向传播过程更加简洁，把向前传播分成不同的阶段将是很有帮助的。比如我们创建了一个中间变量<strong>dot</strong>，它装着<strong>w</strong>和<strong>x</strong>的点乘结果。在反向传播的时，就可以（反向地）计算出装着<strong>w</strong>和<strong>x</strong>等的梯度的对应的变量（比如<strong>ddot</strong>，<strong>dx</strong>和<strong>dw</strong>）。</p>
+<p>本节的要点就是展示反向传播的细节过程，以及前向传播过程中，哪些函数可以被组合成门，从而可以进行简化。知道表达式中哪部分的局部梯度计算比较简洁非常有用，这样他们可以&quot;链&quot;在一起，让代码量更少，效率更高。</p>
+<h2 id="反向传播实践：分段计算">反向传播实践：分段计算</h2>
+<p>看另一个例子。假设有如下函数：</p>
+<p>$ f(x,y)=\frac{x+\sigma(y)}{\sigma(x)+(x+y)^2}$</p>
+<p>首先要说的是，这个函数完全没用，读者是不会用到它来进行梯度计算的，这里只是用来作为实践反向传播的一个例子，需要强调的是，如果对$x$或$y$进行微分运算，运算结束后会得到一个巨大而复杂的表达式。然而做如此复杂的运算实际上并无必要，因为我们不需要一个明确的函数来计算梯度，只需知道如何使用反向传播计算梯度即可。下面是构建前向传播的代码模式：</p>
+<p>​</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">3</span> <span class="comment"># 例子数值</span></span><br><span class="line">y = -<span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 前向传播</span></span><br><span class="line">sigy = <span class="number">1.0</span> / (<span class="number">1</span> + math.exp(-y)) <span class="comment"># 分子中的sigmoi          #(1)</span></span><br><span class="line">num = x + sigy <span class="comment"># 分子                                    #(2)</span></span><br><span class="line">sigx = <span class="number">1.0</span> / (<span class="number">1</span> + math.exp(-x)) <span class="comment"># 分母中的sigmoid         #(3)</span></span><br><span class="line">xpy = x + y                                              <span class="comment">#(4)</span></span><br><span class="line">xpysqr = xpy**<span class="number">2</span>                                          <span class="comment">#(5)</span></span><br><span class="line">den = sigx + xpysqr <span class="comment"># 分母                                #(6)</span></span><br><span class="line">invden = <span class="number">1.0</span> / den                                       <span class="comment">#(7)</span></span><br><span class="line">f = num * invden <span class="comment"># 搞定！                                 #(8)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>到了表达式的最后，就完成了前向传播。注意在构建代码s时创建了多个中间变量，每个都是比较简单的表达式，它们计算局部梯度的方法是已知的。这样计算反向传播就简单了：我们对前向传播时产生每个变量(<strong>sigy, num, sigx, xpy, xpysqr, den, invden</strong>)进行回传。我们会有同样数量的变量，但是都以<strong>d</strong>开头，用来存储对应变量的梯度。注意在反向传播的每一小块中都将包含了表达式的局部梯度，然后根据使用链式法则乘以上游梯度。对于每行代码，我们将指明其对应的是前向传播的哪部分。</p>
+<p>​</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 回传 f = num * invden</span></span><br><span class="line">dnum = invden <span class="comment"># 分子的梯度                                         #(8)</span></span><br><span class="line">dinvden = num                                                     <span class="comment">#(8)</span></span><br><span class="line"><span class="comment"># 回传 invden = 1.0 / den </span></span><br><span class="line">dden = (-<span class="number">1.0</span> / (den**<span class="number">2</span>)) * dinvden                                <span class="comment">#(7)</span></span><br><span class="line"><span class="comment"># 回传 den = sigx + xpysqr</span></span><br><span class="line">dsigx = (<span class="number">1</span>) * dden                                                <span class="comment">#(6)</span></span><br><span class="line">dxpysqr = (<span class="number">1</span>) * dden                                              <span class="comment">#(6)</span></span><br><span class="line"><span class="comment"># 回传 xpysqr = xpy**2</span></span><br><span class="line">dxpy = (<span class="number">2</span> * xpy) * dxpysqr                                        <span class="comment">#(5)</span></span><br><span class="line"><span class="comment"># 回传 xpy = x + y</span></span><br><span class="line">dx = (<span class="number">1</span>) * dxpy                                                   <span class="comment">#(4)</span></span><br><span class="line">dy = (<span class="number">1</span>) * dxpy                                                   <span class="comment">#(4)</span></span><br><span class="line"><span class="comment"># 回传 sigx = 1.0 / (1 + math.exp(-x))</span></span><br><span class="line">dx += ((<span class="number">1</span> - sigx) * sigx) * dsigx <span class="comment"># Notice += !! See notes below  #(3)</span></span><br><span class="line"><span class="comment"># 回传 num = x + sigy</span></span><br><span class="line">dx += (<span class="number">1</span>) * dnum                                                  <span class="comment">#(2)</span></span><br><span class="line">dsigy = (<span class="number">1</span>) * dnum                                                <span class="comment">#(2)</span></span><br><span class="line"><span class="comment"># 回传 sigy = 1.0 / (1 + math.exp(-y))</span></span><br><span class="line">dy += ((<span class="number">1</span> - sigy) * sigy) * dsigy                                 <span class="comment">#(1)</span></span><br><span class="line"><span class="comment"># 完成! 嗷~~</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>需要注意的一些东西：</p>
+<p><strong>对前向传播变量进行缓存</strong>：在计算反向传播时，前向传播过程中得到的一些中间变量非常有用。在实际操作中，最好代码实现对于这些中间变量的缓存，这样在反向传播的时候也能用上它们。如果这样做过于困难，也可以（但是浪费计算资源）重新计算它们。</p>
+<p><strong>在不同分支的梯度要相加</strong>：如果变量x，y在前向传播的表达式中出现多次，那么进行反向传播的时候就要非常小心，使用**+=<strong>而不是</strong>=**来累计这些变量的梯度（不然就会造成覆写）。这是遵循了在微积分中的_多元链式法则_，该法则指出如果变量在线路中分支走向不同的部分，那么梯度在回传的时候，就应该进行累加。</p>
+<h2 id="回传流中的模式">回传流中的模式</h2>
+<p>一个有趣的现象是在多数情况下，反向传播中的梯度可以被很直观地解释。例如神经网络中最常用的加法、乘法和取最大值这三个门单元，它们在反向传播过程中的行为都有非常简单的解释。先看下面这个例子：</p>
+<hr>
+<p><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com/image-20221030235114560.png" alt=""></p>
+<p>一个展示反向传播的例子。加法操作将梯度相等地分发给它的输入。取最大操作将梯度路由给更大的输入。乘法门拿取输入激活数据，对它们进行交换，然后乘以梯度。</p>
+<hr>
+<p>从上例可知：</p>
+<p><strong>加法门单元</strong>把输出的梯度相等地分发给它所有的输入，这一行为与输入值在前向传播时的值无关。这是因为加法操作的局部梯度都是简单的+1，所以所有输入的梯度实际上就等于输出的梯度，因为乘以1.0保持不变。上例中，==加法门把梯度2.00不变且相等地路由给了两个输入。==</p>
+<p><strong>取最大值门单元</strong>对梯度做路由。和加法门不同，取最大值门将梯度转给其中一个输入，这个输入是在前向传播中值最大的那个输入。这是因为在取最大值门中，最高值的局部梯度是1.0，其余的是0。上例中，==取最大值门将梯度2.00转给了<strong>z</strong>变量，因为<strong>z</strong>的值比<strong>w</strong>高，于是<strong>w</strong>的梯度保持为0==。</p>
+<p><strong>乘法门单元</strong>相对不容易解释。它的局部梯度就是输入值，但是是相互交换之后的，然后根据链式法则乘以输出值的梯度。上例中，<strong>x</strong>的梯度是-4.00x2.00=-8.00。</p>
+<p><em>非直观影响及其结果</em>。注意一种比较特殊的情况，如果乘法门单元的其中一个输入非常小，而另一个输入非常大，那么乘法门的操作将会不是那么直观：它将会把大的梯度分配给小的输入，把小的梯度分配给大的输入。在线性分类器中，权重和输入是进行点积$w^Tx_i$，这说明输入数据的大小对于权重梯度的大小有影响。例如==，在计算过程中对所有输入数据样本$x_i$乘以1000，那么权重的梯度将会增大1000倍，这样就必须降低学习率来弥补==。这就是为什么数据预处理关系重大，它即使只是有微小变化，也会产生巨大影响。对于梯度在计算线路中是如何流动的有一个直观的理解，可以帮助读者调试网络。</p>
+<h2 id="用向量化操作计算梯度">用向量化操作计算梯度</h2>
+<p>上述内容考虑的都是单个变量情况，但是所有概念都适用于矩阵和向量操作。然而，在操作的时候要注意关注维度和转置操作。</p>
+<p><strong>矩阵相乘的梯度</strong>：可能最有技巧的操作是矩阵相乘（也适用于矩阵和向量，向量和向量相乘）的乘法操作：</p>
+<p>​</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 前向传播</span></span><br><span class="line">W = np.random.randn(<span class="number">5</span>, <span class="number">10</span>)</span><br><span class="line">X = np.random.randn(<span class="number">10</span>, <span class="number">3</span>)</span><br><span class="line">D = W.dot(X)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设我们得到了D的梯度</span></span><br><span class="line">dD = np.random.randn(*D.shape) <span class="comment"># 和D一样的尺寸</span></span><br><span class="line">dW = dD.dot(X.T) <span class="comment">#.T就是对矩阵进行转置</span></span><br><span class="line">dX = W.T.dot(dD)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>_提示：要分析维度！_注意不需要去记忆<strong>dW</strong>和<strong>dX</strong>的表达，因为它们很容易通过维度推导出来。例如，权重的梯度dW的尺寸肯定和权重矩阵W的尺寸是一样的，而这又是由<strong>X</strong>和<strong>dD</strong>的矩阵乘法决定的（在上面的例子中<strong>X</strong>和<strong>W</strong>都是数字不是矩阵）。总有一个方式是能够让维度之间能够对的上的。例如，<strong>X</strong>的尺寸是[10x3]，<strong>dD</strong>的尺寸是[5x3]，如果你想要dW和W的尺寸是[5x10]，那就要<strong>dD.dot(X.T)</strong>。</p>
+<p><strong>使用小而具体的例子</strong>：有些读者可能觉得向量化操作的梯度计算比较困难，建议是写出一个很小很明确的向量化例子，在纸上演算梯度，然后对其一般化，得到一个高效的向量化操作形式。</p>
+<h2 id="小结">小结</h2>
+<ul>
+<li>对梯度的含义有了直观理解，知道了梯度是如何在网络中反向传播的，知道了它们是如何与网络的不同部分通信并控制其升高或者降低，并使得最终输出值更高的。</li>
+<li>讨论了<strong>分段计算</strong>在反向传播的实现中的重要性。应该将函数分成不同的模块，这样计算局部梯度相对容易，然后基于链式法则将其&quot;链&quot;起来。重要的是，不需要把这些表达式写在纸上然后演算它的完整求导公式，因为实际上并不需要关于输入变量的梯度的数学公式。只需要将表达式分成不同的可以求导的模块（模块可以是矩阵向量的乘法操作，或者取最大值操作，或者加法操作等），然后在反向传播中一步一步地计算梯度。</li>
+</ul>
+<p>在下节课中，将会开始定义神经网络，而反向传播使我们能高效计算神经网络各个节点关于损失函数的梯度。换句话说，我们现在已经准备好训练神经网络了，本课程最困难的部分已经过去了！ConvNets相比只是向前走了一小步。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Jun Cao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/10/30/CS231n/CS231n%205%EF%BC%9A%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AC%94%E8%AE%B0/">http://example.com/2022/10/30/CS231n/CS231n%205%EF%BC%9A%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">炸牛奶超级甜</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5/">优化策略</a><a class="post-meta__tags" href="/tags/CS231n/">CS231n</a><a class="post-meta__tags" href="/tags/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/">反向传播</a></div><div class="post_share"><div class="social-share" data-image="http://www.tensorflownews.com/wp-content/uploads/2018/03/%E5%9B%BE%E7%89%8716.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/10/30/CS231n/CS231n%204%EF%BC%9A%E6%9C%80%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/"><img class="prev-cover" src="https://img-blog.csdnimg.cn/20181222203042133" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">CS231n 3:最优化</div></div></a></div><div class="next-post pull-right"><a href="/2022/10/29/CS231n/CS231n%203%EF%BC%9Asvm%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%99%A8/"><img class="next-cover" src="https://i2.wp.com/dataaspirant.com/wp-content/uploads/2017/01/Support-vector-machine-svm.jpg?w=1024&amp;ssl=1" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CS231n 2:线性分类器</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/10/30/CS231n/CS231n%204%EF%BC%9A%E6%9C%80%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/" title="CS231n 3:最优化"><img class="cover" src="https://img-blog.csdnimg.cn/20181222203042133" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-30</div><div class="title">CS231n 3:最优化</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://marketplace.canva.cn/EAEsSrIavXA/2/0/1600w/canva-lqyXLROcj-k.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Jun Cao</div><div class="author-info__description">斗气大陆第一风投师 ,一年一千算法题</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8C%E7%90%86%E8%A7%A3%E6%A2%AF%E5%BA%A6"><span class="toc-number">2.</span> <span class="toc-text">简单表达式和理解梯度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E9%93%BE%E5%BC%8F%E6%B3%95%E5%88%99%E8%AE%A1%E7%AE%97%E5%A4%8D%E5%90%88%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">使用链式法则计算复合表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%9A%84%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3"><span class="toc-number">4.</span> <span class="toc-text">反向传播的直观理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%EF%BC%9ASigmoid%E4%BE%8B%E5%AD%90"><span class="toc-number">5.</span> <span class="toc-text">模块化：Sigmoid例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%AE%9E%E8%B7%B5%EF%BC%9A%E5%88%86%E6%AE%B5%E8%AE%A1%E7%AE%97"><span class="toc-number">6.</span> <span class="toc-text">反向传播实践：分段计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E4%BC%A0%E6%B5%81%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text">回传流中的模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E5%90%91%E9%87%8F%E5%8C%96%E6%93%8D%E4%BD%9C%E8%AE%A1%E7%AE%97%E6%A2%AF%E5%BA%A6"><span class="toc-number">8.</span> <span class="toc-text">用向量化操作计算梯度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">9.</span> <span class="toc-text">小结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/11/04/%E5%85%AB%E8%82%A1%E6%96%87/%E4%B8%BA%E4%BB%80%E4%B9%88%20MySQL%20%E9%87%87%E7%94%A8%20B+%20%E6%A0%91%E4%BD%9C%E4%B8%BA%E7%B4%A2%E5%BC%95%EF%BC%9F/" title="为什么MySql采用B+树作为索引"><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com/b6678c667053a356f46fc5691d2f5878.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="为什么MySql采用B+树作为索引"/></a><div class="content"><a class="title" href="/2022/11/04/%E5%85%AB%E8%82%A1%E6%96%87/%E4%B8%BA%E4%BB%80%E4%B9%88%20MySQL%20%E9%87%87%E7%94%A8%20B+%20%E6%A0%91%E4%BD%9C%E4%B8%BA%E7%B4%A2%E5%BC%95%EF%BC%9F/" title="为什么MySql采用B+树作为索引">为什么MySql采用B+树作为索引</a><time datetime="2022-11-03T16:00:00.000Z" title="发表于 2022-11-04 00:00:00">2022-11-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/04/%E5%85%AB%E8%82%A1%E6%96%87/MySql%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%9C%BA%E6%99%AF/" title="索引失效"><img src="https://caojun-2014.oss-cn-beijing.aliyuncs.com/f287701eba9bf6f32a2d09b013bb451b.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="索引失效"/></a><div class="content"><a class="title" href="/2022/11/04/%E5%85%AB%E8%82%A1%E6%96%87/MySql%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E5%9C%BA%E6%99%AF/" title="索引失效">索引失效</a><time datetime="2022-11-03T16:00:00.000Z" title="发表于 2022-11-04 00:00:00">2022-11-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/02/transformer%E7%BB%93%E6%9E%84/" title="无题"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2022/11/02/transformer%E7%BB%93%E6%9E%84/" title="无题">无题</a><time datetime="2022-11-02T08:02:21.753Z" title="发表于 2022-11-02 16:02:21">2022-11-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/01/leetCode/202211%E5%88%B7%E9%A2%98/" title="a"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="a"/></a><div class="content"><a class="title" href="/2022/11/01/leetCode/202211%E5%88%B7%E9%A2%98/" title="a">a</a><time datetime="2022-11-01T07:34:43.000Z" title="发表于 2022-11-01 15:34:43">2022-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/30/CS231n/CS231n%204%EF%BC%9A%E6%9C%80%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/" title="CS231n 3:最优化"><img src="https://img-blog.csdnimg.cn/20181222203042133" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CS231n 3:最优化"/></a><div class="content"><a class="title" href="/2022/10/30/CS231n/CS231n%204%EF%BC%9A%E6%9C%80%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/" title="CS231n 3:最优化">CS231n 3:最优化</a><time datetime="2022-10-29T16:00:00.000Z" title="发表于 2022-10-30 00:00:00">2022-10-30</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 By Jun Cao</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="https://butterfly.js.org/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
